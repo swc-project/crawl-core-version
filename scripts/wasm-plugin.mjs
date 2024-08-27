@@ -79,6 +79,8 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         await $$`git reset --hard origin/${await defaultBranch()}`
     }
 
+    const latestCommit = (await $$`git rev-parse HEAD`).text().trim()
+
     console.info(`Repository is now ready.`);
 
     const firstCommit = (await $$`git rev-list --max-parents=0 HEAD`).text().trim()
@@ -93,6 +95,7 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         // Move to the next commit
         await $$`git log --reverse --pretty=%H ${baseBranch} | grep -A 1 $(git rev-parse HEAD) | tail -1 | xargs git checkout`
 
+        const commit = (await $$`git rev-parse HEAD`).text().trim()
         const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
 
         for (const pkg of packageJsonFiles) {
@@ -111,7 +114,6 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
             // Only for the first commit of a package
             const map = packageVersions.get(pkgJson.name);
             if (!map.has(version)) {
-                const commit = (await $$`git rev-parse HEAD`).text().trim()
                 packageVersions.get(pkgJson.name).set(version, commit)
             }
 
