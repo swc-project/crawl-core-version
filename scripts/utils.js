@@ -15,6 +15,14 @@ export async function* findPackageJsonFiles(dir) {
     }
 }
 
+export async function* findCargoLockFiles(dir) {
+    for await (const file of walk(dir)) {
+        if (path.basename(file) === 'Cargo.lock') {
+            yield file
+        }
+    }
+}
+
 export async function asArray(asyncIterable) {
     const arr = []
     for await (const item of asyncIterable) {
