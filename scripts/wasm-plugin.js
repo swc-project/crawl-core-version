@@ -93,6 +93,23 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
     const baseBranch = await defaultBranch()
 
+    // Get git heads from npm
+    for (const pkg of plugin.packages) {
+        const data = await (await fetch(`https://registry.npmjs.org/${pkg}`)).json();
+
+        for (const [version, obj] of Object.entries(data.versions)) {
+            if (obj.gitHead) {
+                if (!packageVersions[pkg]) {
+                    packageVersions[pkg] = {}
+                }
+
+                const map = packageVersions[pkg];
+                if (!map[version]) {
+                    map[version] = obj.gitHead
+                }
+            }
+        }
+    }
 
     // Go to the next commit, and check for the new package versions
     while (true) {
