@@ -161,6 +161,9 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     const allCommits = Object.values(packageVersions).flatMap(pkg => Object.values(pkg))
     const uniqueCommits = [...new Set(allCommits)]
 
+    // Reset to the latest commit
+    await $$`git checkout ${baseBranch}`
+
     const coreVersions = await getCoreVersions(wsDir, cacheDir, uniqueCommits);
 
     console.log(coreVersions)

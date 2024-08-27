@@ -55,17 +55,19 @@ export async function getCoreVersions(repoDir, cacheDir, allCommits) {
 
 /**
  * 
- * @param {string} reopDir 
+ * @param {string} repoDir 
  * @param {string} commit 
  * @returns 
  */
-async function getCoreVersion(reopDir, commit) {
-    const $$ = $({ cwd: reopDir });
+async function getCoreVersion(repoDir, commit) {
+    const $$ = $({ cwd: repoDir });
     const relativePathToCargoLock = 'Cargo.lock'
 
     let cargoLock;
     try {
         // This will throw if the file does not exist at the time of the commit
+        
+        // Note: This is very verbose, but it fails if we disable verbose logging
         cargoLock = await $$`git show ${commit}:${relativePathToCargoLock}`.text();
     } catch (ignored) {
         return null;
