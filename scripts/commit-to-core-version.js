@@ -58,7 +58,7 @@ export async function getCoreVersions(repoDir, cacheDir, allCommits) {
  * 
  * @param {string} repoDir 
  * @param {string} commit 
- * @returns 
+ * @returns string | null
  */
 async function getCoreVersion(repoDir, commit) {
     const $$ = $({ cwd: repoDir });
