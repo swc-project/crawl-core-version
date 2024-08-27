@@ -5,6 +5,7 @@ import { parse as parseYaml, } from 'yaml'
 import { z } from 'zod'
 import path from "node:path";
 import { memoize } from 'lodash-es'
+import { getCoreVersions } from './commit-to-core-version.js'
 
 $.verbose = true
 $.env = {
@@ -52,8 +53,6 @@ async function asArray(asyncIterable) {
     }
     return arr
 }
-
-let allCommits = new Map();
 
 for (const pkg of await fs.readdir('pkgs/plugins')) {
     const packageVersions = {};
@@ -158,7 +157,13 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         packageVersions: packageVersions
     }), null, 2));
 
-    allCommits.set(name, packageVersions)
+    // Now we collect the version of `swc_core`
+    const allCommits = Object.values(packageVersions).flatMap(pkg => Object.values(pkg))
+    const uniqueCommits = [...new Set(allCommits)]
+
+    const coreVersions = await getCoreVersions(wsDir, cacheDir, uniqueCommits);
+
+    console.log(coreVersions)
 }
 
-// Now we collect the version of `swc_core`
+
