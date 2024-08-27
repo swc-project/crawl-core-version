@@ -2,6 +2,8 @@ name: Auto Update
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   update:
@@ -21,10 +23,23 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Update
         run: node ./scripts/${{ matrix.script }}
         env:
           CRAWL_SECRET: ${{ secrets.CRAWL_SECRET }}
+
+      - name: Commit
+        uses: EndBug/add-and-commit@v4
+        with:
+          author_name: SWC Bot
+          author_email: bot@swc.rs
+          message: "chore: Run & Update cache"
+          add: "cache"
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GH_TOKEN }}
