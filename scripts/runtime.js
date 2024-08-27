@@ -20,12 +20,6 @@ const RuntimeSchema = z.object({
   path: z.string().nullish(),
 });
 
-
-const CacheSchema = z.object({
-  commit: z.string().describe('The commit hash of the last checked commit'),
-  packageVersions: z.record(z.string(), z.record(z.string(), z.string()))
-})
-
 const workspaceDir = path.resolve('.workspace');
 await fs.mkdir(workspaceDir, { recursive: true });
 
@@ -48,14 +42,6 @@ for (const runtimeFile of await fs.readdir('pkgs/runtimes')) {
 
   const cacheDir = path.join('cache', 'runtimes', runtimeFile)
   await fs.mkdir(cacheDir, { recursive: true });
-
-  const cacheFile = path.join(cacheDir, 'commits.json')
-  let cacheJson;
-  try {
-    cacheJson = JSON.parse(await fs.readFile(cacheFile, 'utf8'))
-  } catch (ignored) {
-  }
-  const cache = CacheSchema.safeParse(cacheJson)
 
   console.info(`Cloning ${runtime.repo} into ${wsDir}`)
 
