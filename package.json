@@ -12,6 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "lodash-es": "^4.17.21",
+    "yaml": "^2.5.0",
+    "zod": "^3.23.8",
     "zx": "^8.1.4"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^22.5.0"
   }
 }
