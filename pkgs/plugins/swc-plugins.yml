@@ -1,0 +1,13 @@
+repo: https://github.com/swc-project/plugins.git
+packages:
+  - '@swc/plugin-emotion'
+  - '@swc/plugin-jest'
+  - '@swc/plugin-loadable-components'
+  - '@swc/plugin-noop'
+  - '@swc/plugin-react-remove-properties'
+  - '@swc/plugin-relay'
+  - '@swc/plugin-styled-components'
+  - '@swc/plugin-styled-jsx'
+  - '@swc/plugin-swc-magic'
+  - '@swc/plugin-transform-imports'
+  - '@swc/plugin-prefresh'

@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "yaml": "^2.5.0",
+    "zod": "^3.23.8",
     "zx": "^8.1.4"
   }
 }
