@@ -161,4 +161,4 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     allCommits.set(name, packageVersions)
 }
 
-console.log(allCommits)
+// Now we collect the version of `swc_core`
