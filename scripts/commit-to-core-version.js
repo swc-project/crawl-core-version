@@ -3,6 +3,7 @@ import path from 'path'
 import { z } from 'zod'
 import { $ } from 'zx'
 import * as toml from 'toml'
+import { findCargoLockFiles, asArray } from './utils.js'
 
 const CacheSchema = z.object({
     // commit -> version
@@ -66,21 +67,46 @@ async function getCoreVersion(repoDir, commit) {
     let cargoLock;
     try {
         // This will throw if the file does not exist at the time of the commit
-        
+
         // Note: This is very verbose, but it fails if we disable verbose logging
         cargoLock = await $$`git show ${commit}:${relativePathToCargoLock}`.text();
     } catch (ignored) {
+        // Checkout the commit, and 
+        await $$`git checkout ${commit}`;
+        const cargoLockFiles = await asArray(findCargoLockFiles(repoDir))
+
+        const swcCoreVersions = await Promise.all(cargoLockFiles.map(async (file) => {
+            const content = await fs.readFile(file, 'utf8')
+
+            return tryCargoLock(content)
+        }));
+
+        const versions = [...new Set(swcCoreVersions.filter(Boolean))]
+        if (versions.length === 1) {
+            return versions[0]
+        }
+        console.log(`Found multiple versions for commit ${commit}: ${versions.join(', ')}`)
         return null;
     }
 
-    const parsed = toml.parse(cargoLock);
+
+    return tryCargoLock(cargoLock);
+}
+
+/**
+ * 
+ * @param {string} content 
+ * @returns {string | null}
+ */
+function tryCargoLock(content) {
+    const parsed = toml.parse(content);
     const packages = parsed.package;
 
     for (const pkg of packages) {
         if (pkg.name === "swc_core") {
             const swcCoreVersion = pkg.version;
 
-            console.log(`Found swc_core version ${swcCoreVersion} for commit ${commit}`);
+            console.log(`Found swc_core version ${swcCoreVersion}`);
             return swcCoreVersion
         }
     }

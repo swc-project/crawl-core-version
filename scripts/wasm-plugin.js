@@ -6,6 +6,7 @@ import { z } from 'zod'
 import path from "node:path";
 import { memoize } from 'lodash-es'
 import { getCoreVersions } from './commit-to-core-version.js'
+import { findPackageJsonFiles, asArray } from './utils.js'
 
 $.verbose = true
 $.env = {
@@ -29,30 +30,6 @@ const CacheSchema = z.object({
     commit: z.string().describe('The commit hash of the last checked commit'),
     packageVersions: z.record(z.string(), z.record(z.string(), z.string()))
 })
-
-async function* walk(dir) {
-    for await (const d of await fs.opendir(dir)) {
-        const entry = path.join(dir, d.name);
-        if (d.isDirectory()) yield* walk(entry);
-        else if (d.isFile()) yield entry;
-    }
-}
-
-async function* findPackageJsonFiles(dir) {
-    for await (const file of walk(dir)) {
-        if (path.basename(file) === 'package.json') {
-            yield file
-        }
-    }
-}
-
-async function asArray(asyncIterable) {
-    const arr = []
-    for await (const item of asyncIterable) {
-        arr.push(item)
-    }
-    return arr
-}
 
 for (const pkg of await fs.readdir('pkgs/plugins')) {
     const packageVersions = {};
@@ -126,7 +103,13 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
 
         for (const pkg of packageJsonFiles) {
-            const pkgJson = JSON.parse(await fs.readFile(pkg, 'utf8'))
+            let pkgJson;
+            try {
+                pkgJson = JSON.parse(await fs.readFile(pkg, 'utf8'))
+            } catch (ignored) {
+                console.log(`Failed to read package.json for ${pkg}`)
+                continue
+            }
             if (!plugin.packages.includes(pkgJson.name)) {
                 continue
             }
