@@ -1,0 +1,3 @@
+repo: https://github.com/lingui/swc-plugin.git
+packages:
+  - "@lingui/swc-plugin"

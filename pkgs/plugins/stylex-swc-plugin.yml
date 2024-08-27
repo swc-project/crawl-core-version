@@ -1,0 +1,3 @@
+repo: https://github.com/Dwlad90/stylex-swc-plugin.git
+packages:
+ - "@stylexswc/swc-plugin"
