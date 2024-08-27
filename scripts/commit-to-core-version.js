@@ -72,15 +72,20 @@ async function getCoreVersion(repoDir, commit) {
         cargoLock = await $$`git show ${commit}:${relativePathToCargoLock}`.text();
     } catch (ignored) {
         // Checkout the commit, and 
-
         await $$`git checkout ${commit}`;
         const cargoLockFiles = await asArray(findCargoLockFiles(repoDir))
 
-        if (cargoLockFiles.length === 1) {
-            cargoLock = await fs.readFile(cargoLockFiles[0], 'utf8')
-            return tryCargoLock(cargoLock)
-        }
+        const swcCoreVersions = await Promise.all(cargoLockFiles.map(async (file) => {
+            const content = await fs.readFile(file, 'utf8')
 
+            return tryCargoLock(content)
+        }));
+
+        const versions = [...new Set(swcCoreVersions.filter(Boolean))]
+        if (versions.length === 1) {
+            return versions[0]
+        }
+        console.log(`Found multiple versions for commit ${commit}: ${versions.join(', ')}`)
         return null;
     }
 
