@@ -1,0 +1,3 @@
+repo: https://github.com/g-plane/swc-plugin-vue-jsx.git
+packages:
+  - "@swc/plugin-vue-jsx"

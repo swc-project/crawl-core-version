@@ -1,0 +1,3 @@
+repo: https://github.com/Codex-/swc-plugin-import-meta-env.git
+packages:
+ - "swc-plugin-import-meta-env"

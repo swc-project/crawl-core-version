@@ -1,0 +1,3 @@
+repo: https://github.com/rishabh3112/graphql-tag-swc-plugin.git
+packages:
+  - "graphql-tag-swc-plugin"

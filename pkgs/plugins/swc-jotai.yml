@@ -1,0 +1,4 @@
+repo: https://github.com/pmndrs/swc-jotai.git
+packages:
+ - "@swc-jotai/debug-label"
+ - "@swc-jotai/react-refresh"
