@@ -5,6 +5,7 @@ import { parse as parseYaml, } from 'yaml'
 import { z } from 'zod'
 import path from "node:path";
 import { memoize } from 'lodash-es'
+import { getCoreVersions } from './commit-to-core-version.js'
 
 $.verbose = true
 $.env = {
@@ -23,6 +24,11 @@ const PluginSchema = z.object({
     repo: z.string(),
     packages: z.array(z.string())
 });
+
+const CacheSchema = z.object({
+    commit: z.string().describe('The commit hash of the last checked commit'),
+    packageVersions: z.record(z.string(), z.record(z.string(), z.string()))
+})
 
 async function* walk(dir) {
     for await (const d of await fs.opendir(dir)) {
@@ -48,9 +54,9 @@ async function asArray(asyncIterable) {
     return arr
 }
 
-const packageVersions = new Map();
-
 for (const pkg of await fs.readdir('pkgs/plugins')) {
+    const packageVersions = {};
+
     const { name } = path.parse(pkg);
 
     const pkgYmlPath = `pkgs/plugins/${pkg}`
@@ -59,6 +65,17 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
     const wsDir = path.join(workspaceDir, name)
     await fs.mkdir(wsDir, { recursive: true });
+
+    const cacheDir = path.join('cache', 'wasm-plugins', name)
+    await fs.mkdir(cacheDir, { recursive: true });
+
+    const cacheFile = path.join(cacheDir, 'commits.json')
+    let cacheJson;
+    try {
+        cacheJson = JSON.parse(await fs.readFile(cacheFile, 'utf8'))
+    } catch (ignored) {
+    }
+    const cache = CacheSchema.safeParse(cacheJson)
 
     console.info(`Cloning ${plugin.repo} into ${wsDir}`)
 
@@ -83,9 +100,19 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
     console.info(`Repository is now ready.`);
 
-    const firstCommit = (await $$`git rev-list --max-parents=0 HEAD`).text().trim()
-    console.info(`Checking out the first commit: '${firstCommit}'`)
-    await $$`git checkout ${firstCommit}`
+    if (cache.success) {
+        const commit = cache.data.commit
+        await $$`git checkout ${commit}`
+        console.info(`Resuming from '${commit}'`)
+
+        for (const [pkg, versions] of Object.entries(cache.data.packageVersions)) {
+            packageVersions[pkg] = versions
+        }
+    } else {
+        const firstCommit = (await $$`git rev-list --max-parents=0 HEAD`).text().trim()
+        console.info(`Checking out the first commit: '${firstCommit}' (No cache)`)
+        await $$`git checkout ${firstCommit}`
+    }
 
     const baseBranch = await defaultBranch()
 
@@ -107,14 +134,14 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
             const version = pkgJson.version;
 
-            if (!packageVersions.has(pkgJson.name)) {
-                packageVersions.set(pkgJson.name, new Map())
+            if (!packageVersions[pkgJson.name]) {
+                packageVersions[pkgJson.name] = {}
             }
 
             // Only for the first commit of a package
-            const map = packageVersions.get(pkgJson.name);
-            if (!map.has(version)) {
-                packageVersions.get(pkgJson.name).set(version, commit)
+            const map = packageVersions[pkgJson.name];
+            if (!map[version]) {
+                map[version] = commit
             }
 
         }
@@ -123,6 +150,23 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
             break
         }
     }
+
+    // Write cache
+    await fs.writeFile(cacheFile, JSON.stringify(CacheSchema.parse({
+        commit: latestCommit,
+        packageVersions: packageVersions
+    }), null, 2));
+
+    // Now we collect the version of `swc_core`
+    const allCommits = Object.values(packageVersions).flatMap(pkg => Object.values(pkg))
+    const uniqueCommits = [...new Set(allCommits)]
+
+    // Reset to the latest commit
+    await $$`git checkout ${baseBranch}`
+
+    const coreVersions = await getCoreVersions(wsDir, cacheDir, uniqueCommits);
+
+    console.log(coreVersions)
 }
 
-console.log(packageVersions)
+

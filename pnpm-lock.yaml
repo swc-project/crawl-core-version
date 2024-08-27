@@ -11,6 +11,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      toml:
+        specifier: ^3.0.0
+        version: 3.0.0
       yaml:
         specifier: ^2.5.0
         version: 2.5.0
@@ -47,6 +50,9 @@ packages:
 
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
+  toml@3.0.0:
+    resolution: {integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==}
 
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
@@ -88,6 +94,8 @@ snapshots:
       undici-types: 6.19.8
 
   lodash-es@4.17.21: {}
+
+  toml@3.0.0: {}
 
   undici-types@6.19.8: {}
 
