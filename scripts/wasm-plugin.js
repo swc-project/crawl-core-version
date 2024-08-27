@@ -148,8 +148,10 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     const coreVersions = await getCoreVersions(wsDir, cacheDir, uniqueCommits);
 
     if (process.env.CRAWL_SECRET) {
-        const pkgs = [];
         for (const pkg of plugin.packages) {
+            console.log(`Updating ${pkg}`);
+            
+            const pkgs = [];
             const versions = packageVersions[pkg];
             for (const [version, commit] of Object.entries(versions)) {
                 if (!coreVersions[commit]) {
@@ -163,17 +165,18 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
             pkgs.push({
                 name: pkg,
                 versions: pkgVersions
+            });
+            await fetch(`https://plugins.swc.rs/api/update/wasm-plugins`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    token: process.env.CRAWL_SECRET,
+                    pkgs,
+                })
             })
         }
 
 
-        await fetch(`https://plugins.swc.rs/api/update/wasm-plugins`, {
-            method: 'POST',
-            body: JSON.stringify({
-                token: process.env.CRAWL_SECRET,
-                pkgs,
-            })
-        })
+        
     }
 
     console.log(coreVersions)
