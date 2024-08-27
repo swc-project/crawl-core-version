@@ -1,0 +1,3 @@
+name: "@swc/core"
+repo: https://github.com/swc-project/swc.git
+path: "bindings"

@@ -14,6 +14,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      semver:
+        specifier: ^7.6.3
+        version: 7.6.3
       toml:
         specifier: ^3.0.0
         version: 3.0.0
@@ -57,6 +60,11 @@ packages:
 
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
+  semver@7.6.3:
+    resolution: {integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==}
+    engines: {node: '>=10'}
+    hasBin: true
 
   toml@3.0.0:
     resolution: {integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==}
@@ -103,6 +111,8 @@ snapshots:
   dotenv@16.4.5: {}
 
   lodash-es@4.17.21: {}
+
+  semver@7.6.3: {}
 
   toml@3.0.0: {}
 

@@ -1,5 +1,14 @@
-import fs from 'fs/promises'    
+import fs from 'fs/promises'
 import path from 'path'
+import { $ } from 'zx'
+import { memoize } from 'lodash-es'
+
+$.verbose = true
+$.env = {
+    ...process.env,
+    LANG: 'C'
+}
+
 
 export async function* walk(dir) {
     for await (const d of await fs.opendir(dir)) {
@@ -31,4 +40,29 @@ export async function asArray(asyncIterable) {
         arr.push(item)
     }
     return arr
+}
+
+export async function cloneRepo(repo, wsDir) {
+    const $$ = $({ cwd: wsDir });
+
+
+    let defaultBranch = memoize(async () => {
+        return (await $$`git remote show origin | sed -n '/HEAD branch/s/.*: //p'`).text().trim()
+    })
+
+    try {
+        await $$`git clone ${repo} .`
+    } catch (e) {
+        console.error(`Failed to clone ${repo} into ${wsDir}`)
+        await $$`git fetch origin -p`
+
+        console.info(`Default branch: ${await defaultBranch()}`)
+
+        await $$`git reset --hard origin/${await defaultBranch()}`
+    }
+    const latestCommit = (await $$`git rev-parse HEAD`).text().trim()
+
+    console.info(`Repository is now ready.`);
+
+    return { defaultBranch, latestCommit }
 }

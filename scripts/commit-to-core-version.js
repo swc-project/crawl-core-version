@@ -45,6 +45,12 @@ export async function getCoreVersions(repoDir, cacheDir, allCommits) {
         }
         const version = await getCoreVersion(repoDir, commit)
         versions[commit] = version
+
+        if (Object.keys(versions).length % 10 === 0) {
+            await fs.writeFile(cacheFile, JSON.stringify(CacheSchema.parse({
+                versions,
+            }), null, 2));
+        }
     }
 
     await fs.writeFile(cacheFile, JSON.stringify(CacheSchema.parse({
@@ -58,7 +64,7 @@ export async function getCoreVersions(repoDir, cacheDir, allCommits) {
  * 
  * @param {string} repoDir 
  * @param {string} commit 
- * @returns 
+ * @returns string | null
  */
 async function getCoreVersion(repoDir, commit) {
     const $$ = $({ cwd: repoDir });
