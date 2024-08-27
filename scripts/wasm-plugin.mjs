@@ -4,6 +4,13 @@ import fs from 'node:fs/promises'
 import { parse as parseYaml, } from 'yaml'
 import { z } from 'zod'
 import path from "node:path";
+import {memoize} from 'lodash-es'
+
+$.verbose = true
+$.env = {
+    ...process.env,
+    LANG: 'C'
+}
 
 // We iterate over all commits from the main branch, in reverse order
 //
@@ -30,6 +37,21 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     console.info(`Cloning ${plugin.repo} into ${wsDir}`)
 
     const $$ = $({ cwd: wsDir });
-    
-    await $$`git clone ${plugin.repo} .`
+
+    let defaultBranch = memoize(async () => {
+        return (await $$`git remote show origin | sed -n '/HEAD branch/s/.*: //p'`).text().trim()
+    })
+
+    try {
+        await $$`git clone ${plugin.repo} .`
+    } catch (e) {
+        console.error(`Failed to clone ${plugin.repo} into ${wsDir}`)
+        await $$`git fetch origin -p`
+
+        console.info(`Default branch: ${await defaultBranch()}`)
+
+        await $$`git reset --hard origin/${await defaultBranch()}`
+    }
+
+    console.info(`Repository is now ready`)
 }
