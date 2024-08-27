@@ -3,10 +3,14 @@ import { $ } from "zx";
 import fs from 'node:fs/promises'
 import { parse as parseYaml,  } from 'yaml'
 import {z }from 'zod'
+import path from "node:path";
 
 // We iterate over all commits from the main branch, in reverse order
 //
 // We grab the version from the package.json files, and use it to determine the commit for a given npm version
+
+const workspaceDir= path.resolve('.workspace');
+await fs.mkdir(workspaceDir, { recursive: true });
 
 const PluginSchema = z.object({
     repo: z.string(),
