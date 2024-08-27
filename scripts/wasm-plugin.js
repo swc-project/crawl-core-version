@@ -191,7 +191,7 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         }
 
 
-        await fetch(`http://localhost:50000/api/update/wasm-plugins`, {
+        await fetch(`https://plugins.swc.rs/api/update/wasm-plugins`, {
             method: 'POST',
             body: JSON.stringify({
                 token: process.env.CRAWL_SECRET,
