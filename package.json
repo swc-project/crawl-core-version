@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "lodash-es": "^4.17.21",
     "toml": "^3.0.0",
     "yaml": "^2.5.0",
