@@ -22,7 +22,31 @@ await fs.mkdir(workspaceDir, { recursive: true });
 const PluginSchema = z.object({
     repo: z.string(),
     packages: z.array(z.string())
-})
+});
+
+async function* walk(dir) {
+    for await (const d of await fs.opendir(dir)) {
+        const entry = path.join(dir, d.name);
+        if (d.isDirectory()) yield* walk(entry);
+        else if (d.isFile()) yield entry;
+    }
+}
+
+async function* findPackageJsonFiles(dir) {
+    for await (const file of walk(dir)) {
+        if (path.basename(file) === 'package.json') {
+            yield file
+        }
+    }
+}
+
+async function asArray(asyncIterable) {
+    const arr = []
+    for await (const item of asyncIterable) {
+        arr.push(item)
+    }
+    return arr
+}
 
 for (const pkg of await fs.readdir('pkgs/plugins')) {
     const { name } = path.parse(pkg);
@@ -53,5 +77,10 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         await $$`git reset --hard origin/${await defaultBranch()}`
     }
 
-    console.info(`Repository is now ready`)
+    console.info(`Repository is now ready`);
+
+    const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
+
+    console.log(packageJsonFiles)
+
 }
