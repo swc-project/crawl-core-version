@@ -2,17 +2,16 @@
   "commit": "b52e147b92664d80e66b51077fda2d87731ed348",
   "packageVersions": {
     "@lingui/swc-plugin": {
-      "0.0.2": "b0e6ffc4283f9a37b47d873542c7192c90a0d5ff",
-      "0.1.0": "0106a86a1b95b15e5ced69b978868a105f9b9d94",
-      "0.2.0": "726bf72a7f6105d04fe25f82df6c852a386ba37e",
+      "0.1.0": "bb001fbd277172328b36d07edd2061faac49a024",
+      "0.2.0": "ed8238f0c2290f3162974f4205f1d522f5fbec99",
       "0.2.1": "64bc458ee020db42bbb203a1816f30bd6de4e4ba",
       "0.2.2": "ee5b85c34876d61addaf493e07deddcffb2d2d0c",
       "0.2.3": "562188f279986c031e3604750b9013bf700f9252",
-      "4.0.0-next.0": "873133f36226f12dbabe2f91853973fc6aa842a6",
+      "4.0.0-next.0": "c2cdf3c8375c2b9ab7d1a46bb312e090c9d41e31",
       "4.0.0-next.1": "0a5e34f65f9ee7d5d4ed67e854f449c95f005022",
       "4.0.0-next.2": "44bbf12855949406ba16ac277b808c34c7ad4b0b",
       "4.0.0-next.3": "c776a6ee30926a3833e9025e00545c3277d581ba",
-      "4.0.0": "02a3f88cd91497893c5398ce7d49a9ebb54449df",
+      "4.0.0": "1b115a7f307aaeb9d98442576d3ed908a74b60dd",
       "4.0.1": "7ceb9127e80d5d3a12187fbe59d236464eb44dfe",
       "4.0.2": "1f145eedf23e45fad7608e5eb60257ed3e3222e6",
       "4.0.3": "ad863c14b52228c06cd91fe9bfb4a489d4281bc3",
@@ -20,7 +19,11 @@
       "4.0.5": "bdb8af96879d0745b6fbd6d38df40144ed262b1a",
       "4.0.6": "9d618377996abe84aba36934bc19e163a60ab27b",
       "4.0.7": "66bd99cde8f2c252bfe7d6a3e490ac6fb980d602",
-      "4.0.8": "89a0556f5372e46f276e1b25769c8ba45931af93"
+      "4.0.8": "89a0556f5372e46f276e1b25769c8ba45931af93",
+      "5.0.0-next.0": "691c25a707aa0aca483c3526891df66658a2463a",
+      "5.0.0-next.1": "56aca4d250375876b20da0adf3a3e0af6b73dfe3",
+      "5.0.0-next.2": "931ee1d802f7cfb416961c0ff15a7e3bf9e8361c",
+      "0.0.2": "b0e6ffc4283f9a37b47d873542c7192c90a0d5ff"
     }
   }
 }
