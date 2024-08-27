@@ -4,7 +4,7 @@ import fs from 'node:fs/promises'
 import { parse as parseYaml, } from 'yaml'
 import { z } from 'zod'
 import path from "node:path";
-import {memoize} from 'lodash-es'
+import { memoize } from 'lodash-es'
 
 $.verbose = true
 $.env = {
@@ -48,6 +48,8 @@ async function asArray(asyncIterable) {
     return arr
 }
 
+const packageVersions = new Map();
+
 for (const pkg of await fs.readdir('pkgs/plugins')) {
     const { name } = path.parse(pkg);
 
@@ -79,14 +81,35 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
     console.info(`Repository is now ready`);
 
-    const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
+    while (true) {
+        // Move to the next commit
+        await $$`git checkout HEAD~`
 
-    for(const pkg of packageJsonFiles) {
-        const pkgJson = JSON.parse(await fs.readFile(pkg, 'utf8'))
-        if(!plugin.packages.includes(pkgJson.name)) {
-            continue
+        const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
+
+        for (const pkg of packageJsonFiles) {
+            const pkgJson = JSON.parse(await fs.readFile(pkg, 'utf8'))
+            if (!plugin.packages.includes(pkgJson.name)) {
+                continue
+            }
+            console.info(`Found '${pkgJson.name}'`)
+
+            const version = pkgJson.version;
+
+            if(!packageVersions.has(pkgJson.name)) {
+                packageVersions.set(pkgJson.name, new Map())
+            }
+
+            // Only for the first commit of a package
+            const map=packageVersions.get(pkgJson.name);
+            if(!map.has(version)){
+                const commit = (await $$`git rev-parse HEAD`).text().trim()
+                packageVersions.get(pkgJson.name).set(version, commit)
+            }
+
         }
-        console.info(`Found '${pkgJson.name}'`)
+
     }
+
 
 }
