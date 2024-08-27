@@ -71,8 +71,12 @@ async function getCoreVersion(repoDir, commit) {
         // Note: This is very verbose, but it fails if we disable verbose logging
         cargoLock = await $$`git show ${commit}:${relativePathToCargoLock}`.text();
     } catch (ignored) {
-        // Checkout the commit, and 
-        await $$`git checkout ${commit}`;
+        try {
+            // Checkout the commit, and 
+            await $$`git checkout ${commit}`;
+        } catch (ignored) {
+            return null
+        }
         const cargoLockFiles = await asArray(findCargoLockFiles(repoDir))
 
         const swcCoreVersions = await Promise.all(cargoLockFiles.map(async (file) => {
