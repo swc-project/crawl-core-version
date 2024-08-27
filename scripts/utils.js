@@ -3,6 +3,13 @@ import path from 'path'
 import { $ } from 'zx'
 import { memoize } from 'lodash-es'
 
+$.verbose = true
+$.env = {
+    ...process.env,
+    LANG: 'C'
+}
+
+
 export async function* walk(dir) {
     for await (const d of await fs.opendir(dir)) {
         const entry = path.join(dir, d.name);

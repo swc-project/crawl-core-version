@@ -8,12 +8,6 @@ import { getCoreVersions } from './commit-to-core-version.js'
 import { findPackageJsonFiles, asArray, cloneRepo } from './utils.js'
 import 'dotenv/config'
 
-$.verbose = true
-$.env = {
-    ...process.env,
-    LANG: 'C'
-}
-
 
 
 
