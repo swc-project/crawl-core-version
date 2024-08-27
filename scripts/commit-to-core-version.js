@@ -101,7 +101,7 @@ function tryCargoLock(content) {
         if (pkg.name === "swc_core") {
             const swcCoreVersion = pkg.version;
 
-            console.log(`Found swc_core version ${swcCoreVersion} for commit ${commit}`);
+            console.log(`Found swc_core version ${swcCoreVersion}`);
             return swcCoreVersion
         }
     }
