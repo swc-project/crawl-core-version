@@ -79,11 +79,19 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         await $$`git reset --hard origin/${await defaultBranch()}`
     }
 
-    console.info(`Repository is now ready`);
+    console.info(`Repository is now ready.`);
 
-    while (true) {
+    const firstCommit = (await $$`git rev-list --max-parents=0 HEAD`).text().trim()
+    console.info(`Checking out the first commit: '${firstCommit}'`)
+    await $$`git checkout ${firstCommit}`
+
+    const baseBranch = await defaultBranch()
+    /**
+     * Go back to the next commit, and check for the new package versions
+     */
+    async function step() {
         // Move to the next commit
-        await $$`git checkout HEAD~`
+        await $$`git log --reverse --pretty=%H ${baseBranch} | grep -A 1 $(git rev-parse HEAD) | tail -1 | xargs git checkout`
 
         const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
 
@@ -96,20 +104,23 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
             const version = pkgJson.version;
 
-            if(!packageVersions.has(pkgJson.name)) {
+            if (!packageVersions.has(pkgJson.name)) {
                 packageVersions.set(pkgJson.name, new Map())
             }
 
             // Only for the first commit of a package
-            const map=packageVersions.get(pkgJson.name);
-            if(!map.has(version)){
+            const map = packageVersions.get(pkgJson.name);
+            if (!map.has(version)) {
                 const commit = (await $$`git rev-parse HEAD`).text().trim()
                 packageVersions.get(pkgJson.name).set(version, commit)
             }
 
         }
-
     }
 
-
+    while (true) {
+        await step()
+    }
 }
+
+console.log(packageVersions)
