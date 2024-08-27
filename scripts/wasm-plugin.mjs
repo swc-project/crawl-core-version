@@ -88,10 +88,10 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     await $$`git checkout ${firstCommit}`
 
     const baseBranch = await defaultBranch()
-    /**
-     * Go back to the next commit, and check for the new package versions
-     */
-    async function step() {
+
+
+    // Go to the next commit, and check for the new package versions
+    while (true) {
         // Move to the next commit
         await $$`git log --reverse --pretty=%H ${baseBranch} | grep -A 1 $(git rev-parse HEAD) | tail -1 | xargs git checkout`
 
@@ -118,10 +118,10 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
             }
 
         }
-    }
 
-    while (true) {
-        await step()
+        if (latestCommit === commit) {
+            break
+        }
     }
 }
 
