@@ -40,7 +40,7 @@ export async function getCoreVersions(repoDir, cacheDir, allCommits) {
     }
 
     for (const commit of allCommits) {
-        if (versions[commit]) {
+        if (Object.prototype.hasOwnProperty.call(versions, commit)) {
             continue
         }
         const version = await getCoreVersion(repoDir, commit)
