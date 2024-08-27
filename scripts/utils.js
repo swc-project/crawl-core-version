@@ -1,3 +1,5 @@
+import fs from 'fs/promises'    
+import path from 'path'
 
 export async function* walk(dir) {
     for await (const d of await fs.opendir(dir)) {
