@@ -81,6 +81,12 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
     const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
 
-    console.log(packageJsonFiles)
+    for(const pkg of packageJsonFiles) {
+        const pkgJson = JSON.parse(await fs.readFile(pkg, 'utf8'))
+        if(!plugin.packages.includes(pkgJson.name)) {
+            continue
+        }
+        console.info(`Found '${pkgJson.name}'`)
+    }
 
 }
