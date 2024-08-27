@@ -5,7 +5,7 @@ import { parse as parseYaml, } from 'yaml'
 import { z } from 'zod'
 import path from "node:path";
 import { getCoreVersions } from './commit-to-core-version.js'
-import { findPackageJsonFiles, asArray,cloneRepo } from './utils.js'
+import { findPackageJsonFiles, asArray, cloneRepo } from './utils.js'
 import 'dotenv/config'
 
 $.verbose = true
@@ -62,7 +62,7 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
     const $$ = $({ cwd: wsDir });
 
-    const {defaultBranch,latestCommit} = await cloneRepo(plugin.repo, wsDir)
+    const { defaultBranch, latestCommit } = await cloneRepo(plugin.repo, wsDir)
 
     if (cache.success) {
         const commit = cache.data.commit
