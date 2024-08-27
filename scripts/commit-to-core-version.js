@@ -2,10 +2,11 @@ import fs from 'fs/promises'
 import path from 'path'
 import { z } from 'zod'
 import { $ } from 'zx'
+import * as toml from 'toml'
 
 const CacheSchema = z.object({
     // commit -> version
-    versions: z.record(z.string(), z.string())
+    versions: z.record(z.string(), z.string().nullable())
 })
 
 /**
@@ -41,13 +42,15 @@ export async function getCoreVersions(repoDir, cacheDir, allCommits) {
         if (versions[commit]) {
             continue
         }
-        const version = await getCoreVersion(reopDir, commit)
+        const version = await getCoreVersion(repoDir, commit)
         versions[commit] = version
     }
 
     await fs.writeFile(cacheFile, JSON.stringify(CacheSchema.parse({
         versions,
     }), null, 2));
+
+    return versions
 }
 
 /**
@@ -58,7 +61,27 @@ export async function getCoreVersions(repoDir, cacheDir, allCommits) {
  */
 async function getCoreVersion(reopDir, commit) {
     const $$ = $({ cwd: reopDir });
+    const relativePathToCargoLock = 'Cargo.lock'
 
-    
+    let cargoLock;
+    try {
+        // This will throw if the file does not exist at the time of the commit
+        cargoLock = await $$`git show ${commit}:${relativePathToCargoLock}`.text();
+    } catch (ignored) {
+        return null;
+    }
 
+    const parsed = toml.parse(cargoLock);
+    const packages = parsed.package;
+
+    for (const pkg of packages) {
+        if (pkg.name === "swc_core") {
+            const swcCoreVersion = pkg.version;
+
+            console.log(`Found swc_core version ${swcCoreVersion} for commit ${commit}`);
+            return swcCoreVersion
+        }
+    }
+
+    return null;
 }
