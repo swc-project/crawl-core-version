@@ -7,6 +7,7 @@ import path from "node:path";
 import { memoize } from 'lodash-es'
 import { getCoreVersions } from './commit-to-core-version.js'
 import { findPackageJsonFiles, asArray } from './utils.js'
+import 'dotenv/config'
 
 $.verbose = true
 $.env = {
@@ -14,9 +15,13 @@ $.env = {
     LANG: 'C'
 }
 
+
+
+
 // We iterate over all commits from the main branch, in reverse order
 //
 // We grab the version from the package.json files, and use it to determine the commit for a given npm version
+
 
 const workspaceDir = path.resolve('.workspace');
 await fs.mkdir(workspaceDir, { recursive: true });
@@ -165,6 +170,35 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     await $$`git checkout ${baseBranch}`
 
     const coreVersions = await getCoreVersions(wsDir, cacheDir, uniqueCommits);
+
+    if (process.env.CRAWL_SECRET) {
+        const pkgs = [];
+        for (const pkg of plugin.packages) {
+            const versions = packageVersions[pkg];
+            for (const [version, commit] of Object.entries(versions)) {
+                if (!coreVersions[commit]) {
+                    delete versions[version]
+                }
+            }
+            const pkgVersions = Object.entries(versions).map(([version, commit]) => ({
+                version,
+                swcCoreVersion: coreVersions[commit]
+            }))
+            pkgs.push({
+                name: pkg,
+                versions: pkgVersions
+            })
+        }
+
+
+        await fetch(`http://localhost:50000/api/update/wasm-plugins`, {
+            method: 'POST',
+            body: JSON.stringify({
+                token: process.env.CRAWL_SECRET,
+                pkgs,
+            })
+        })
+    }
 
     console.log(coreVersions)
 }
