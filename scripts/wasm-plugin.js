@@ -126,7 +126,13 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
 
         for (const pkg of packageJsonFiles) {
-            const pkgJson = JSON.parse(await fs.readFile(pkg, 'utf8'))
+            let pkgJson;
+            try {
+                pkgJson = JSON.parse(await fs.readFile(pkg, 'utf8'))
+            } catch (ignored) {
+                console.log(`Failed to read package.json for ${pkg}`)
+                continue
+            }
             if (!plugin.packages.includes(pkgJson.name)) {
                 continue
             }
