@@ -53,6 +53,7 @@ async function asArray(asyncIterable) {
     return arr
 }
 
+let allCommits = new Map();
 
 for (const pkg of await fs.readdir('pkgs/plugins')) {
     const packageVersions = {};
@@ -69,7 +70,7 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     const cacheDir = path.join('cache', 'wasm-plugins', name)
     await fs.mkdir(cacheDir, { recursive: true });
 
-    const cacheFile = path.join(cacheDir, 'cache.json')
+    const cacheFile = path.join(cacheDir, 'commits.json')
     let cacheJson;
     try {
         cacheJson = JSON.parse(await fs.readFile(cacheFile, 'utf8'))
@@ -152,9 +153,12 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     }
 
     // Write cache
-    console.log(packageVersions)
     await fs.writeFile(cacheFile, JSON.stringify(CacheSchema.parse({
         commit: latestCommit,
         packageVersions: packageVersions
-    }), null, 2))
+    }), null, 2));
+
+    allCommits.set(name, packageVersions)
 }
+
+console.log(allCommits)
