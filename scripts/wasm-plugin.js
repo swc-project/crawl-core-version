@@ -4,9 +4,8 @@ import fs from 'node:fs/promises'
 import { parse as parseYaml, } from 'yaml'
 import { z } from 'zod'
 import path from "node:path";
-import { memoize } from 'lodash-es'
 import { getCoreVersions } from './commit-to-core-version.js'
-import { findPackageJsonFiles, asArray } from './utils.js'
+import { findPackageJsonFiles, asArray,cloneRepo } from './utils.js'
 import 'dotenv/config'
 
 $.verbose = true
@@ -63,24 +62,7 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
     const $$ = $({ cwd: wsDir });
 
-    let defaultBranch = memoize(async () => {
-        return (await $$`git remote show origin | sed -n '/HEAD branch/s/.*: //p'`).text().trim()
-    })
-
-    try {
-        await $$`git clone ${plugin.repo} .`
-    } catch (e) {
-        console.error(`Failed to clone ${plugin.repo} into ${wsDir}`)
-        await $$`git fetch origin -p`
-
-        console.info(`Default branch: ${await defaultBranch()}`)
-
-        await $$`git reset --hard origin/${await defaultBranch()}`
-    }
-
-    const latestCommit = (await $$`git rev-parse HEAD`).text().trim()
-
-    console.info(`Repository is now ready.`);
+    const {defaultBranch,latestCommit} = await cloneRepo(plugin.repo, wsDir)
 
     if (cache.success) {
         const commit = cache.data.commit
