@@ -1,5 +1,5 @@
 {
-  "commit": "4cda58acd2d95d92832c030be3de7c3f123b47f9",
+  "commit": "4e485c66c02099ce6f2853427f56f78e4f815bc6",
   "packageVersions": {
     "@swc/plugin-emotion": {
       "0.1.0": "e6e53c0eeb4334bf2c9be9b87a673667355cbc0a",
@@ -1043,7 +1043,8 @@
       "2.0.14": "83d5fd1b1148ffc162f0d83a9746ff1625e3d64e",
       "2.0.15": "fe572bc6507512d0ff7679de3fb9000a7bb74404",
       "2.0.16": "03e8a3708d4b00f1c6069ba4af74ae9ecd6db077",
-      "3.0.0": "4cda58acd2d95d92832c030be3de7c3f123b47f9"
+      "3.0.0": "4cda58acd2d95d92832c030be3de7c3f123b47f9",
+      "3.0.1": "4e485c66c02099ce6f2853427f56f78e4f815bc6"
     },
     "@swc/plugin-swc-magic": {
       "1.5.93": "65cd6b5fc551415506891e17fd095b8bf1f61ac5",
@@ -1233,7 +1234,8 @@
       "2.0.10": "83d5fd1b1148ffc162f0d83a9746ff1625e3d64e",
       "2.0.11": "fe572bc6507512d0ff7679de3fb9000a7bb74404",
       "2.0.12": "03e8a3708d4b00f1c6069ba4af74ae9ecd6db077",
-      "3.0.0": "4cda58acd2d95d92832c030be3de7c3f123b47f9"
+      "3.0.0": "4cda58acd2d95d92832c030be3de7c3f123b47f9",
+      "3.0.1": "4e485c66c02099ce6f2853427f56f78e4f815bc6"
     },
     "@swc/plugin-prefresh": {
       "2.0.7": "448aedf5c0adddfd3e035fbe40ad38a18937ee43",
