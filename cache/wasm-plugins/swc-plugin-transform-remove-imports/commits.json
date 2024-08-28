@@ -1,0 +1,28 @@
+{
+  "commit": "764eaf46ea42fdd6890e58c3eb7697321ce1d9f8",
+  "packageVersions": {
+    "swc-plugin-transform-remove-imports": {
+      "1.9.0": "f7f31451d928462cb64303a0b0fc7e39dfeb6f24",
+      "1.10.0": "f21c7783bba6f56cf25e4ad51dcdd16cfb47e052",
+      "1.11.0": "4ba6aefc8c6d9ab82eaeff56799f89c92b4ddd7d",
+      "1.12.0": "eeb8547e0d8f5635ed20fc0fa7d527574e038621",
+      "1.12.1": "92999b7b42c7162be26bd4d6862f52bab5831b88",
+      "1.13.0": "ea40eae17eb6807414d2a0f0b98bfebbde405fc9",
+      "1.14.0": "55c9beaf4b24b1554d192a6db08f89a797176cfd",
+      "1.15.0": "5e2bff8c65ff99ae00d91bf94a4f76d09be465ef",
+      "1.16.0": "0762286026f40495aa2bb0e6e5999251c5d21277",
+      "1.17.0": "b37e8be4c24afc40d8efef353e860f064cc81577",
+      "0.0.1": "c27884e7bf941d88b3f28de4390640d5dbc2bb39",
+      "1.0.0": "cfa27e6603e23df9ea177a9f5a91198ca098e3ed",
+      "1.0.1": "c2c8883c21d7510b3f6e46ebbab25d14447c150b",
+      "1.1.0": "c26a46184bdfcdd970dc51d6abd08498c6bf0fbf",
+      "1.2.0": "2620f8628ea534f2402aa8e2140b1b23d3465603",
+      "1.3.0": "99fc99d8d80f2550e69a3d2527501397f61d4ced",
+      "1.4.0": "f78fe281344d370d4d95615524964f7d23351e9a",
+      "1.5.0": "500a915722bc5ee233b2d23e8ccb8a20f99d5104",
+      "1.6.0": "dddcc79e4816497ddd3619c9f2d000b83beacc23",
+      "1.7.0": "3b898c66738622c728836b5c912e33095c77df6a",
+      "1.8.0": "36d9dc7fe92dcf6192865a022fc18e2f97144e86"
+    }
+  }
+}
