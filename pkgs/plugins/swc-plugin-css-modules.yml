@@ -1,0 +1,3 @@
+repo: https://github.com/VKCOM/swc-plugin-css-modules.git
+packages:
+ - "swc-plugin-css-modules"
