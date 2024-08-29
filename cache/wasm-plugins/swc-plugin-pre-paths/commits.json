@@ -1,5 +1,5 @@
 {
-  "commit": "54ecf90acb317f124e2e6500f5cb80d28d0c98a0",
+  "commit": "d4fbf467f5a8ec081526e46b01ecc96fb362afcc",
   "packageVersions": {
     "swc-plugin-pre-paths": {
       "0.1.1": "e281528a7500fe8d11f87b87dec1b1471ed1f878",
@@ -13,7 +13,8 @@
       "0.1.9": "3b9c0598afc609833b5b552fea5f1f626a82029f",
       "0.1.10": "bab06417fd55d0745b5d214ba673f5a7b5a44453",
       "0.0.1": "a1efd94c3124829fb78e4afb30d641d6eb347018",
-      "0.1.0": "258a3687e882d1b46fb817f8ee26e17d5b73606d"
+      "0.1.0": "258a3687e882d1b46fb817f8ee26e17d5b73606d",
+      "0.1.11": "d4fbf467f5a8ec081526e46b01ecc96fb362afcc"
     }
   }
 }
