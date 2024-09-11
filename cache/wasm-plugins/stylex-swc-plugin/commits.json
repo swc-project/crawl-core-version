@@ -1,10 +1,11 @@
 {
-  "commit": "521015d74375a85145460b14c04c1e6795a2f473",
+  "commit": "1bd06d12275fcc01568a3825eab564102aac8b51",
   "packageVersions": {
     "@stylexswc/swc-plugin": {
       "0.0.1": "5b729bbb204bb99d83d6ba7ff08bde65a7bca97b",
       "0.1.0": "192211eba78134bb2815ff2965b650ccedd1e036",
-      "0.2.0": "521015d74375a85145460b14c04c1e6795a2f473"
+      "0.2.0": "521015d74375a85145460b14c04c1e6795a2f473",
+      "0.2.1": "1bd06d12275fcc01568a3825eab564102aac8b51"
     }
   }
 }
