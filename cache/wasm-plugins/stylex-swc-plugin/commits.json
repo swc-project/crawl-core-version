@@ -1,5 +1,5 @@
 {
-  "commit": "c92445e26ad08d0a06e782aedadf626e6fef7afc",
+  "commit": "2bdc0d699d8cdb7f56be24452451f6367ff79331",
   "packageVersions": {
     "@stylexswc/swc-plugin": {
       "0.0.1": "5b729bbb204bb99d83d6ba7ff08bde65a7bca97b",
@@ -8,7 +8,13 @@
       "0.2.1": "1bd06d12275fcc01568a3825eab564102aac8b51",
       "0.2.2": "42aef5e22d868818a613e5988843ba3ca547110f",
       "0.2.3": "e43e1c9594435152aa153010b4f2d219fe6ecd11",
-      "0.2.4": "6c18afaf10e6bc332fb2412e91e9b0587cbda018"
+      "0.2.4": "6c18afaf10e6bc332fb2412e91e9b0587cbda018",
+      "0.3.0-rc.1": "3316497cab266ea44698eec38ba8eb062b06c8b4",
+      "0.3.0-rc.2": "32bda925d35844af2c00c19051b949bb6f6de17e",
+      "0.3.0-rc.3": "5c6a1154293b763d8ce47d026d1a4b6f66f6e450",
+      "0.3.0-rc.4": "027bfb571c2f40fa2b7e3ea7b62678a4895fcaa5",
+      "0.3.0-rc.5": "e318ca51bd48f08c62b7d70d7497c8923cd3fa49",
+      "0.3.0": "725dc38c6f5f51ba13779eab28401cb9b575124f"
     }
   }
 }
