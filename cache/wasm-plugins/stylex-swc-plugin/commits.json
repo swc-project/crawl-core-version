@@ -1,5 +1,5 @@
 {
-  "commit": "e710b549548eb7651c24934e7661ba5f4ef709a4",
+  "commit": "5adbdf98643ce64ed61009922052c7a5e05e3331",
   "packageVersions": {
     "@stylexswc/swc-plugin": {
       "0.0.1": "5b729bbb204bb99d83d6ba7ff08bde65a7bca97b",
@@ -15,7 +15,8 @@
       "0.3.0-rc.4": "027bfb571c2f40fa2b7e3ea7b62678a4895fcaa5",
       "0.3.0-rc.5": "e318ca51bd48f08c62b7d70d7497c8923cd3fa49",
       "0.3.0": "725dc38c6f5f51ba13779eab28401cb9b575124f",
-      "0.3.1-rc.1": "4521fb4fb4d33c86556df22cdcbfa2016e5cf5de"
+      "0.3.1-rc.1": "4521fb4fb4d33c86556df22cdcbfa2016e5cf5de",
+      "0.3.1-rc.2": "5adbdf98643ce64ed61009922052c7a5e05e3331"
     }
   }
 }
