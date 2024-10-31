@@ -27,6 +27,10 @@ export async function* findPackageJsonFiles(dir) {
 }
 
 export async function* findCargoLockFiles(dir) {
+    if (await fs.stat(path.join(dir, 'Cargo.lock')).isFile()) {
+        yield path.join(dir, 'Cargo.lock')
+    }
+
     for await (const file of walk(dir)) {
         if (path.basename(file) === 'Cargo.lock') {
             yield file
