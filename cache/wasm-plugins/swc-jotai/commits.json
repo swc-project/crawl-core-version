@@ -1,0 +1,32 @@
+{
+  "commit": "c03a22f602617e1e8ede5ba63c18178a5262af36",
+  "packageVersions": {
+    "@swc-jotai/debug-label": {
+      "0.0.1": "5b087977ab8135f54bf47ee0fa14bcfb242a1f9a",
+      "0.0.2": "939989c4c15f5e2cb1359a64c3fe291326e265d3",
+      "0.0.3": "73150910f557b4c140e6c5bc1408ef54081263a2",
+      "0.0.4": "f041f3f9000f0425aeedc874a842694403f1a1e6",
+      "0.0.5": "3e80b48de20fe94cd71f49c4b48946b2b6c032a7",
+      "0.0.6": "2cb55a1a99c0e2309066dc0f9d0430faa6b1df33",
+      "0.0.7": "3f02c48295bd9f6a63cfea4e3d07dd40debb4dc9",
+      "0.0.8": "7e0a286ef8497411494541e4aedbdeacc916e72b",
+      "0.0.9": "01a990af41ae38bf30706871d521805fa3933049",
+      "0.0.10": "e8d33c180925ca79c8ffc5422a33bb248027122c",
+      "0.1.0": "299613184c5698fb24b39a060aee33a2c4ac9f13",
+      "0.1.1": "9a4d555cac7dd3b08d689c0eba5ca1c1a75b8fba"
+    },
+    "@swc-jotai/react-refresh": {
+      "0.0.1": "9f8415f73daea8a3a37b78711b73385ec32634b7",
+      "0.0.2": "2cb55a1a99c0e2309066dc0f9d0430faa6b1df33",
+      "0.0.3": "fbce9adf87ca87ba373033ba8948d94498dac0b1",
+      "0.0.4": "0bc7df056d1b6ef9a70f6c23fcc97738d25f0ced",
+      "0.0.5": "aed10c8860bf45d5e9d3ea1d817ec8121f6efa65",
+      "0.0.6": "7e0a286ef8497411494541e4aedbdeacc916e72b",
+      "0.0.7": "01a990af41ae38bf30706871d521805fa3933049",
+      "0.0.8": "6c4e67400101de107312bc66fd803d001feb6d42",
+      "0.1.0": "299613184c5698fb24b39a060aee33a2c4ac9f13",
+      "0.1.1": "9a4d555cac7dd3b08d689c0eba5ca1c1a75b8fba",
+      "0.2.0": "c03a22f602617e1e8ede5ba63c18178a5262af36"
+    }
+  }
+}

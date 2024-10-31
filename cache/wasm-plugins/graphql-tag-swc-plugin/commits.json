@@ -1,0 +1,23 @@
+{
+  "commit": "50bec495b7a67e47d065d0a8daabd5a809cb8dea",
+  "packageVersions": {
+    "graphql-tag-swc-plugin": {
+      "0.1.0": "ecb3370d66de775e2ae3b987d95455b9cbac1d7e",
+      "0.1.1": "d9623457d23a6d7f9aa412b9be1943cd664f7376",
+      "0.1.2-0": "74be38699e7b5fb8fb68c8620b172aa182ff12a8",
+      "0.1.2-1": "bc2ffa7b7cf7738394ebbdfe7a0087bdcdd32ef2",
+      "0.1.2": "c508c5f76c4c551520d07bb39be3d3fd7b34df8e",
+      "0.1.3": "a43a69a7cf22b1ee07a63ecabac007f7b5a84c98",
+      "0.1.4-0": "d9d3c850a9ac8e850f150473fb28eb7b87780214",
+      "0.1.4-1": "4f5636328c30c3a8174e8e9c4128c685eb36e5c1",
+      "0.1.4": "042a3645d7e9404be3c24dea406c9a7b1e67f745",
+      "0.1.5": "fe8661652fbf66bf363227efaea5fca87e63f00f",
+      "0.1.6": "ada9d05c22ec06ca710f581ea24de3d1c687c4d3",
+      "0.1.7-0": "1f2d76f5eafe5bfbe26867f0fb1b914d2f2734a3",
+      "0.1.7-1": "feaf7de8708d2088168344a4f01415904835464a",
+      "0.1.8-0": "1d9fe275f571f163fae98b3eda4b1fa601bccf4d",
+      "1.0.0": "10c5b046a8cd7532d96f2b2d7e78f2138cf6a7fe",
+      "1.1.0": "50bec495b7a67e47d065d0a8daabd5a809cb8dea"
+    }
+  }
+}
