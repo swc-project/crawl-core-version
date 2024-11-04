@@ -70,10 +70,14 @@ for (const runtimeFile of await fs.readdir('pkgs/runtimes')) {
   if (process.env.CRAWL_SECRET) {
     const pkgs = []
     const pkg = runtime.name;
-    const pkgVersions = gitTags.map((tag) => ({
-      version: tag,
-      swcCoreVersion: coreVersions[tag]
-    }));
+    const pkgVersions = gitTags.filter(tag => {
+      return coreVersions[tag]
+    }).map((tag) => {
+      return {
+        version: tag,
+        swcCoreVersion: coreVersions[tag]
+      }
+    });
 
     pkgs.push({
       name: pkg,
