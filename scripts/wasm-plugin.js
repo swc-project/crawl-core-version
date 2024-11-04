@@ -30,6 +30,10 @@ const CacheSchema = z.object({
 })
 
 for (const pkg of await fs.readdir('pkgs/plugins')) {
+    if (!pkg.endsWith('.yml')) {
+        continue
+    }
+
     const packageVersions = {};
 
     const { name } = path.parse(pkg);
@@ -150,7 +154,7 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
     if (process.env.CRAWL_SECRET) {
         for (const pkg of plugin.packages) {
             console.log(`Updating ${pkg}`);
-            
+
             const pkgs = [];
             const versions = packageVersions[pkg];
             for (const [version, commit] of Object.entries(versions)) {
@@ -176,7 +180,7 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
         }
 
 
-        
+
     }
 
     console.log(coreVersions)
