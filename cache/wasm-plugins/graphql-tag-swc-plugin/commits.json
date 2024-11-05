@@ -1,5 +1,5 @@
 {
-  "commit": "50bec495b7a67e47d065d0a8daabd5a809cb8dea",
+  "commit": "a043be64e47a9d4e0f4847f1c7e030916ce4388f",
   "packageVersions": {
     "graphql-tag-swc-plugin": {
       "0.1.0": "ecb3370d66de775e2ae3b987d95455b9cbac1d7e",
@@ -17,7 +17,8 @@
       "0.1.7-1": "feaf7de8708d2088168344a4f01415904835464a",
       "0.1.8-0": "1d9fe275f571f163fae98b3eda4b1fa601bccf4d",
       "1.0.0": "10c5b046a8cd7532d96f2b2d7e78f2138cf6a7fe",
-      "1.1.0": "50bec495b7a67e47d065d0a8daabd5a809cb8dea"
+      "1.1.0": "50bec495b7a67e47d065d0a8daabd5a809cb8dea",
+      "1.1.1": "a043be64e47a9d4e0f4847f1c7e030916ce4388f"
     }
   }
 }
