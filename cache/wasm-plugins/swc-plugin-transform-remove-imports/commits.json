@@ -1,5 +1,5 @@
 {
-  "commit": "850c9fb006df996aa954fc86dc82cc280ab87a22",
+  "commit": "cb56f312511707586cfe2d5e3d063a416abab056",
   "packageVersions": {
     "swc-plugin-transform-remove-imports": {
       "1.9.0": "f7f31451d928462cb64303a0b0fc7e39dfeb6f24",
@@ -29,7 +29,8 @@
       "1.6.0": "dddcc79e4816497ddd3619c9f2d000b83beacc23",
       "1.7.0": "3b898c66738622c728836b5c912e33095c77df6a",
       "1.8.0": "36d9dc7fe92dcf6192865a022fc18e2f97144e86",
-      "1.24.0": "e54f17cee117fba1ae35ccd3030c61bcc7a6f10c"
+      "1.24.0": "e54f17cee117fba1ae35ccd3030c61bcc7a6f10c",
+      "2.0.0": "cb56f312511707586cfe2d5e3d063a416abab056"
     }
   }
 }
