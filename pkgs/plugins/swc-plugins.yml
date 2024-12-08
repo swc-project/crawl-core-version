@@ -11,3 +11,4 @@ packages:
   - "@swc/plugin-swc-magic"
   - "@swc/plugin-transform-imports"
   - "@swc/plugin-prefresh"
+  - "@swc/plugin-formatjs"
