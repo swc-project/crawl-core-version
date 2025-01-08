@@ -1,5 +1,5 @@
 {
-  "commit": "a7a22a23ab73dcba0d528737cc8d218f5f0c293a",
+  "commit": "4e25c564175ef17aee2a12540dfa59ac5d488a4c",
   "packageVersions": {
     "@swc/plugin-emotion": {
       "0.1.0": "e6e53c0eeb4334bf2c9be9b87a673667355cbc0a",
@@ -150,7 +150,8 @@
       "7.0.1": "c08ebdcf9b81341fe7a7fab3f766f7f4cb1742a4",
       "7.0.3": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "8.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "8.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "8.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "8.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-jest": {
       "0.1.4": "46a22f096d87efc6453b8463b4e6bf3ac85b33cb",
@@ -322,7 +323,8 @@
       "5.0.0": "75df607ccd322efe138bb6a7f7c57accfafb989c",
       "5.0.2": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-loadable-components": {
       "0.1.1": "28ab1c04df68f7347d470ed3bac4e72d7f7befa9",
@@ -456,7 +458,8 @@
       "4.0.1": "c08ebdcf9b81341fe7a7fab3f766f7f4cb1742a4",
       "4.0.3": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "5.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "5.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "5.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "5.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-noop": {
       "1.5.0": "b25ceab7571380a5c249167272f79000ee69b2cb",
@@ -578,7 +581,8 @@
       "5.0.0": "75df607ccd322efe138bb6a7f7c57accfafb989c",
       "5.0.2": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-react-remove-properties": {
       "1.5.84": "74b5317821f609384db5898ff3557507989eb5e1",
@@ -633,7 +637,8 @@
       "5.0.0": "75df607ccd322efe138bb6a7f7c57accfafb989c",
       "5.0.2": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-relay": {
       "0.1.0": "f034551b1eac1b164c77a4dcca2c1a0e2859ee5f",
@@ -793,7 +798,8 @@
       "5.0.1": "c08ebdcf9b81341fe7a7fab3f766f7f4cb1742a4",
       "5.0.3": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-styled-components": {
       "0.1.0": "2fc1fbfd8aab800ebf0c043a565a4ee8d2589417",
@@ -953,7 +959,8 @@
       "5.0.0": "75df607ccd322efe138bb6a7f7c57accfafb989c",
       "5.0.2": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-styled-jsx": {
       "0.1.0": "6ea1a11951c082f7ec22a0df429be77fe6a5e0bc",
@@ -1122,7 +1129,8 @@
       "5.0.0": "75df607ccd322efe138bb6a7f7c57accfafb989c",
       "5.0.2": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-swc-magic": {
       "1.5.93": "65cd6b5fc551415506891e17fd095b8bf1f61ac5",
@@ -1171,7 +1179,8 @@
       "5.0.0": "75df607ccd322efe138bb6a7f7c57accfafb989c",
       "5.0.2": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-transform-imports": {
       "0.1.0": "7fe9f0853ea5daeded624e2584dac49444efe15a",
@@ -1332,7 +1341,8 @@
       "5.0.1": "c08ebdcf9b81341fe7a7fab3f766f7f4cb1742a4",
       "5.0.3": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.4": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-prefresh": {
       "2.0.7": "448aedf5c0adddfd3e035fbe40ad38a18937ee43",
@@ -1348,13 +1358,15 @@
       "5.0.0": "75df607ccd322efe138bb6a7f7c57accfafb989c",
       "5.0.2": "6929b1ebcf45f089b6b999f6279ae7e0b5750ebe",
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
-      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148"
+      "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
+      "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     },
     "@swc/plugin-formatjs": {
       "2.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
       "2.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
       "2.0.3": "429b9b24965d871ffea21314bcca8d9a8913f32d",
-      "2.0.4": "76f74df15484bc98656b3c7459ce2a1eede814f4"
+      "2.0.4": "76f74df15484bc98656b3c7459ce2a1eede814f4",
+      "2.0.5": "4e25c564175ef17aee2a12540dfa59ac5d488a4c"
     }
   }
 }
