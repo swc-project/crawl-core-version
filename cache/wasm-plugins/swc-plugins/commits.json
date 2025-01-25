@@ -1,5 +1,5 @@
 {
-  "commit": "5886faf693bad6d186674774da3b7877549b6f1e",
+  "commit": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f",
   "packageVersions": {
     "@swc/plugin-emotion": {
       "0.1.0": "e6e53c0eeb4334bf2c9be9b87a673667355cbc0a",
@@ -153,7 +153,8 @@
       "8.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
       "8.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c",
       "8.0.4": "32992a5801cdf32a6172a6d5dd8b12065d8542a9",
-      "8.1.0": "5886faf693bad6d186674774da3b7877549b6f1e"
+      "8.1.0": "5886faf693bad6d186674774da3b7877549b6f1e",
+      "8.3.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f"
     },
     "@swc/plugin-jest": {
       "0.1.4": "46a22f096d87efc6453b8463b4e6bf3ac85b33cb",
@@ -968,7 +969,9 @@
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
       "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
       "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c",
-      "6.0.4": "32992a5801cdf32a6172a6d5dd8b12065d8542a9"
+      "6.0.4": "32992a5801cdf32a6172a6d5dd8b12065d8542a9",
+      "6.1.0": "53bd1e6bb1fbab71d9dd3348cca17036ad4a5ace",
+      "6.3.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f"
     },
     "@swc/plugin-styled-jsx": {
       "0.1.0": "6ea1a11951c082f7ec22a0df429be77fe6a5e0bc",
@@ -1140,7 +1143,8 @@
       "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
       "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c",
       "6.0.4": "32992a5801cdf32a6172a6d5dd8b12065d8542a9",
-      "6.1.0": "5886faf693bad6d186674774da3b7877549b6f1e"
+      "6.1.0": "5886faf693bad6d186674774da3b7877549b6f1e",
+      "6.3.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f"
     },
     "@swc/plugin-swc-magic": {
       "1.5.93": "65cd6b5fc551415506891e17fd095b8bf1f61ac5",
@@ -1354,7 +1358,8 @@
       "6.0.1": "afedc1f43683f140a5b60521aa160c8529ed91b5",
       "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
       "6.0.4": "4e25c564175ef17aee2a12540dfa59ac5d488a4c",
-      "6.0.5": "32992a5801cdf32a6172a6d5dd8b12065d8542a9"
+      "6.0.5": "32992a5801cdf32a6172a6d5dd8b12065d8542a9",
+      "6.1.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f"
     },
     "@swc/plugin-prefresh": {
       "2.0.7": "448aedf5c0adddfd3e035fbe40ad38a18937ee43",
