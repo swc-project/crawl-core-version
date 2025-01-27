@@ -1,5 +1,5 @@
 {
-  "commit": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f",
+  "commit": "34ef3d2a0abf38412384ea53c7a9a80d2b4719d4",
   "packageVersions": {
     "@swc/plugin-emotion": {
       "0.1.0": "e6e53c0eeb4334bf2c9be9b87a673667355cbc0a",
@@ -154,7 +154,8 @@
       "8.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c",
       "8.0.4": "32992a5801cdf32a6172a6d5dd8b12065d8542a9",
       "8.1.0": "5886faf693bad6d186674774da3b7877549b6f1e",
-      "8.3.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f"
+      "8.3.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f",
+      "8.4.0": "094bf0870ad91c0d1e5251c1c3e81cb3128e0b6e"
     },
     "@swc/plugin-jest": {
       "0.1.4": "46a22f096d87efc6453b8463b4e6bf3ac85b33cb",
@@ -971,7 +972,9 @@
       "6.0.3": "4e25c564175ef17aee2a12540dfa59ac5d488a4c",
       "6.0.4": "32992a5801cdf32a6172a6d5dd8b12065d8542a9",
       "6.1.0": "53bd1e6bb1fbab71d9dd3348cca17036ad4a5ace",
-      "6.3.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f"
+      "6.3.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f",
+      "6.4.0": "0267bbfe1d373d03936beaa075c6e3dbd0ba8092",
+      "6.5.0": "34ef3d2a0abf38412384ea53c7a9a80d2b4719d4"
     },
     "@swc/plugin-styled-jsx": {
       "0.1.0": "6ea1a11951c082f7ec22a0df429be77fe6a5e0bc",
@@ -1359,7 +1362,8 @@
       "6.0.2": "c05429b23cf50eb13a69b04c34c8cb0e4ebca148",
       "6.0.4": "4e25c564175ef17aee2a12540dfa59ac5d488a4c",
       "6.0.5": "32992a5801cdf32a6172a6d5dd8b12065d8542a9",
-      "6.1.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f"
+      "6.1.0": "443a2cd0bcd09a0d4b4aebe0bc02be09c0e0e80f",
+      "6.2.0": "a879b4713bcedbef18779a1ec6869d0f8a4d4159"
     },
     "@swc/plugin-prefresh": {
       "2.0.7": "448aedf5c0adddfd3e035fbe40ad38a18937ee43",
