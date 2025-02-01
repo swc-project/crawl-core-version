@@ -1,5 +1,5 @@
 {
-  "commit": "6091481316d38b46d7c0e1c3e844086fbfad33fe",
+  "commit": "13ed0bd3d2f6c24fcbf83ddf6f78e8927efe56a9",
   "packageVersions": {
     "swc-plugin-css-modules": {
       "0.1.5": "ede8f3963daa1df4c2f4cd4f16778ed0fa98586c",
@@ -29,7 +29,8 @@
       "1.0.0": "ff955c8023aea6cee95d511e308c96f6f91743ef",
       "2.0.0": "48a5389c66c5c51421f034a4f2d8c7a1bb1208a4",
       "2.0.1": "2cac5604a34be1ea9e857eca25f606001422410f",
-      "2.0.2": "a91c286cbe2af9214e103592579d7ff1e003b769"
+      "2.0.2": "a91c286cbe2af9214e103592579d7ff1e003b769",
+      "2.1.0": "13ed0bd3d2f6c24fcbf83ddf6f78e8927efe56a9"
     }
   }
 }
