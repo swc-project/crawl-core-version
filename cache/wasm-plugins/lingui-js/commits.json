@@ -1,5 +1,5 @@
 {
-  "commit": "f14a980cfa3f522493efb755aae6553064691e1f",
+  "commit": "302053018e41de4497d84a0bdfcb5815fd8c8553",
   "packageVersions": {
     "@lingui/swc-plugin": {
       "0.1.0": "bb001fbd277172328b36d07edd2061faac49a024",
@@ -30,7 +30,9 @@
       "0.0.2": "b0e6ffc4283f9a37b47d873542c7192c90a0d5ff",
       "5.0.0": "571234e07589e8591b52746f32a7efe4a146993a",
       "5.0.1": "625b4f29dd5cfb9a476f959b2886d35ba31e7537",
-      "5.0.2": "f14a980cfa3f522493efb755aae6553064691e1f"
+      "5.0.2": "f14a980cfa3f522493efb755aae6553064691e1f",
+      "5.1.0": "a40aac3b2116886a8536eb1f8ecb179963b03b4f",
+      "5.2.0": "302053018e41de4497d84a0bdfcb5815fd8c8553"
     }
   }
 }
