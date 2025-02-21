@@ -24,7 +24,12 @@ jobs:
           node-version: 20
 
       - name: Enable corepack
-        run: corepack enable
+        run: |
+          echo "Before: corepack version => $(corepack --version || echo 'not installed')"
+          npm install -g corepack@latest
+          echo "After : corepack version => $(corepack --version)"
+          corepack enable
+          pnpm --version
 
       - name: Install dependencies
         run: pnpm install
