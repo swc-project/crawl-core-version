@@ -1,5 +1,5 @@
 {
-  "commit": "eacbd9da10274cdc4c44a2a4ffff0c10d2f8ef53",
+  "commit": "d2db7bab5b44cd7ae955da36b3e03e163c6bae6c",
   "packageVersions": {
     "swc-plugin-vue-jsx": {
       "0.2.3": "b9edd0f10b2e74bb95e72e269095b223a0b2b111",
@@ -15,7 +15,8 @@
       "0.2.7": "500d1c8df1384b4ce973949bc0e59229d4cbaa61",
       "0.3.0": "949fb28064a595a0ddce5d89b2fc7f9d93725169",
       "0.3.1": "cf4124015425dd2969b7eae7b7f378fbc8dc2417",
-      "0.3.2": "fa65f056373a1ee9433baaba61703c1b139fdd3e"
+      "0.3.2": "fa65f056373a1ee9433baaba61703c1b139fdd3e",
+      "0.4.0": "d2db7bab5b44cd7ae955da36b3e03e163c6bae6c"
     }
   }
 }
