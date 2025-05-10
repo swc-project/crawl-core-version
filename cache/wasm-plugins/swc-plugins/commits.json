@@ -1,5 +1,5 @@
 {
-  "commit": "3d1d40d9254f64edd96ed57ca1c3e30ebf28ec69",
+  "commit": "de2cbeb5454f7bd916b95cd06cbe7a36751e2d43",
   "packageVersions": {
     "@swc/plugin-emotion": {
       "0.1.0": "e6e53c0eeb4334bf2c9be9b87a673667355cbc0a",
@@ -1459,7 +1459,8 @@
       "7.0.1": "48bb908abf4e2991505909cd79755924403b8718",
       "7.0.2": "fd351691ac86df8dfcc01d53f2c3273aadb9f811",
       "7.0.3": "a0424a4706355ed6e7aaf57a234d27cbf7357ee0",
-      "7.0.4": "584f4d7cf3d616b8773877254e6bdc9d751398e4"
+      "7.0.4": "584f4d7cf3d616b8773877254e6bdc9d751398e4",
+      "7.2.0": "de2cbeb5454f7bd916b95cd06cbe7a36751e2d43"
     },
     "@swc/plugin-prefresh": {
       "2.0.7": "448aedf5c0adddfd3e035fbe40ad38a18937ee43",
