@@ -1,5 +1,5 @@
 {
-  "commit": "350d5f8a1b51cf5f8374cf6010a78c8d7ea8e382",
+  "commit": "94cb7feaff3228efdcdd350657132f1d549fe2ca",
   "packageVersions": {
     "swc-plugin-import-meta-env": {
       "0.1.1": "677d3e80847d394966777466a01bf9461ab96630",
@@ -85,7 +85,8 @@
       "1.12.4": "6971df9acdc810833edc214f8c12482315998aef",
       "1.12.5": "672294f2cbd8fa36a237f9d39ee961fac2901ec9",
       "1.12.6": "0dbcc0430f12b053d0bbea6700afcd189bb743a1",
-      "1.12.7": "c6f4827f963c616c38b8065eea7f70682bbf254c"
+      "1.12.7": "c6f4827f963c616c38b8065eea7f70682bbf254c",
+      "1.12.9": "6897fcc4558ae831fe3a515c73f784c91fc013fb"
     }
   }
 }
