@@ -1,5 +1,5 @@
 {
-  "commit": "b8eba7146d5095c2b1a618fdf72b6b18d1109189",
+  "commit": "bb0444292d46e5aee459ff5289bfaa127e2756ce",
   "packageVersions": {
     "@swc/plugin-emotion": {
       "0.1.0": "e6e53c0eeb4334bf2c9be9b87a673667355cbc0a",
@@ -1555,7 +1555,8 @@
       "3.2.2": "584f4d7cf3d616b8773877254e6bdc9d751398e4",
       "3.2.3": "7f3276fbe8178c4e5283ca39e6ab42522162eddb",
       "4.0.0": "cb39a1318bf71b44649a99f6d224488dbb5f49d8",
-      "4.0.1": "40332316dafce5b0f328c38167a31cd8447f8f21"
+      "4.0.1": "40332316dafce5b0f328c38167a31cd8447f8f21",
+      "5.0.0": "ff3d364e53f868c3f9c26ff2471848a99cdf1bdb"
     }
   }
 }
