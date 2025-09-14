@@ -1,5 +1,5 @@
 {
-  "commit": "75c5b18d397782ab233aa0040b87dfeea1ebbc05",
+  "commit": "2917ee01109d5e527127e818f0f9e76d8c0fd945",
   "packageVersions": {
     "swc-plugin-coverage-instrument": {
       "0.0.1": "8b49e14579d23a40bf41fa244db78f0de1f28324",
@@ -29,7 +29,8 @@
       "0.0.25": "07f356ab24c5a55363596345ad7b3699ee863689",
       "0.0.26": "ce26301626ec7358d7d731dca4c0a692afd71caa",
       "0.0.27": "34f36fa40df21f0ef5abacfe66d8297ce9778c77",
-      "0.0.28": "072b79e9b5cc7c032ed80dcde38c2eb408186677"
+      "0.0.28": "072b79e9b5cc7c032ed80dcde38c2eb408186677",
+      "0.0.29": "2917ee01109d5e527127e818f0f9e76d8c0fd945"
     }
   }
 }
