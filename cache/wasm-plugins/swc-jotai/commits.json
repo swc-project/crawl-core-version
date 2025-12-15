@@ -1,5 +1,5 @@
 {
-  "commit": "348397202b21dc9a261282ecd67d93341564b9a7",
+  "commit": "a938863c5c9a8d3d5af7da68d18199fff596844a",
   "packageVersions": {
     "@swc-jotai/debug-label": {
       "0.0.1": "5b087977ab8135f54bf47ee0fa14bcfb242a1f9a",
@@ -15,7 +15,8 @@
       "0.1.0": "299613184c5698fb24b39a060aee33a2c4ac9f13",
       "0.1.1": "9a4d555cac7dd3b08d689c0eba5ca1c1a75b8fba",
       "0.2.0": "35f8e07e1b5436a40a03968c52ab6e948ea9fb8b",
-      "0.4.0": "8b6da893f36a3fb38e5903b103d0882d9e33cdd7"
+      "0.4.0": "8b6da893f36a3fb38e5903b103d0882d9e33cdd7",
+      "0.5.0": "a938863c5c9a8d3d5af7da68d18199fff596844a"
     },
     "@swc-jotai/react-refresh": {
       "0.0.1": "9f8415f73daea8a3a37b78711b73385ec32634b7",
@@ -30,7 +31,8 @@
       "0.1.1": "9a4d555cac7dd3b08d689c0eba5ca1c1a75b8fba",
       "0.2.0": "c03a22f602617e1e8ede5ba63c18178a5262af36",
       "0.3.0": "35f8e07e1b5436a40a03968c52ab6e948ea9fb8b",
-      "0.4.0": "8b6da893f36a3fb38e5903b103d0882d9e33cdd7"
+      "0.4.0": "8b6da893f36a3fb38e5903b103d0882d9e33cdd7",
+      "0.5.0": "a938863c5c9a8d3d5af7da68d18199fff596844a"
     }
   }
 }
