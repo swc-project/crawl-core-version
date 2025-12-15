@@ -12,3 +12,5 @@ packages:
   - "@swc/plugin-transform-imports"
   - "@swc/plugin-prefresh"
   - "@swc/plugin-formatjs"
+  - "@swc-contrib/plugin-graphql-codegen-client-preset"
+  - "@swc-contrib/mut-cjs-exports"
