@@ -1,0 +1,3 @@
+repo: https://github.com/Netail/swc-plugin-transform-webpack-context.git
+packages:
+ - "swc-plugin-transform-webpack-context"
