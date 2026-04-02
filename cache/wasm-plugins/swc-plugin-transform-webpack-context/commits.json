@@ -1,0 +1,8 @@
+{
+  "commit": "58b653187c301aa5bc9a026c69401d69df0dd342",
+  "packageVersions": {
+    "swc-plugin-transform-webpack-context": {
+      "0.1.0": "85e697d414679fe32dc521016231363379801940"
+    }
+  }
+}
