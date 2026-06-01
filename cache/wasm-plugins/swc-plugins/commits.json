@@ -1,5 +1,5 @@
 {
-  "commit": "c5bd878f32717c8b5391f111b3e09ba071419bba",
+  "commit": "29920395ac3f766244b8d1be71cdea387723ed7e",
   "packageVersions": {
     "@swc/plugin-emotion": {
       "0.1.0": "e6e53c0eeb4334bf2c9be9b87a673667355cbc0a",
@@ -1250,7 +1250,8 @@
       "12.9.0": "b5c0bf5022fdb064a030f2e4ce8ec440d14cf8f0",
       "12.10.0": "82b5177e166f6b168540f50154418e1ce3bb961e",
       "12.11.0": "d16fe5e26d59f3c9d8db558b2eac591b994a533d",
-      "12.12.0": "14f1097378d30eabf2e80999a6d77f5645932df6"
+      "12.12.0": "14f1097378d30eabf2e80999a6d77f5645932df6",
+      "12.12.1": "29920395ac3f766244b8d1be71cdea387723ed7e"
     },
     "@swc/plugin-styled-jsx": {
       "0.1.0": "6ea1a11951c082f7ec22a0df429be77fe6a5e0bc",
@@ -1895,7 +1896,8 @@
       "9.9.0": "b5c0bf5022fdb064a030f2e4ce8ec440d14cf8f0",
       "9.10.0": "82b5177e166f6b168540f50154418e1ce3bb961e",
       "9.11.0": "d16fe5e26d59f3c9d8db558b2eac591b994a533d",
-      "9.12.0": "14f1097378d30eabf2e80999a6d77f5645932df6"
+      "9.12.0": "14f1097378d30eabf2e80999a6d77f5645932df6",
+      "9.12.1": "29920395ac3f766244b8d1be71cdea387723ed7e"
     },
     "@swc-contrib/mut-cjs-exports": {
       "14.0.1": "8f401e0ae35e5ad19e6e86fcf93a5c57972e7048",
