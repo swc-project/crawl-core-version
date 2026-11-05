@@ -1,0 +1,10 @@
+{
+  "commit": "4d417f8a53dc8a900a2a3dacf5ed9b13efb507fd",
+  "packageVersions": {
+    "swc-plugin-ignore-import": {
+      "0.1.0": "c93e20977cecc310f35a0c15d7594e88c42a0709",
+      "0.2.0": "837da53d43aec0b4cd5ad1592421f0888a30db3d",
+      "0.3.0": "af6486a6ed3007e73608d062a4f7880a9f068b3e"
+    }
+  }
+}
