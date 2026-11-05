@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+# Writes use the swc-project-bot GitHub App token, not GITHUB_TOKEN.
+permissions:
+  contents: read
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -15,8 +19,32 @@ jobs:
           - "runtime.js"
           - "wasm-plugin.js"
     steps:
+      - name: Create bot token
+        id: bot-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.BOT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      # Resolve the bot identity at runtime so commits keep following the app
+      # after it is renamed. The `ID+login` noreply address is how GitHub
+      # attributes commits to the bot account.
+      - name: Resolve bot identity
+        id: bot-identity
+        env:
+          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
+          APP_SLUG: ${{ steps.bot-token.outputs.app-slug }}
+        run: |
+          login="${APP_SLUG}[bot]"
+          id="$(gh api "/users/${APP_SLUG}%5Bbot%5D" --jq .id)"
+          echo "name=${login}" >> "$GITHUB_OUTPUT"
+          echo "email=${id}+${login}@users.noreply.github.com" >> "$GITHUB_OUTPUT"
+
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.bot-token.outputs.token }}
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -42,9 +70,9 @@ jobs:
       - name: Commit
         uses: EndBug/add-and-commit@v4
         with:
-          author_name: SWC Bot
-          author_email: bot@swc.rs
+          author_name: ${{ steps.bot-identity.outputs.name }}
+          author_email: ${{ steps.bot-identity.outputs.email }}
           message: "chore: Run & Update cache"
           add: "cache"
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_GH_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.bot-token.outputs.token }}
