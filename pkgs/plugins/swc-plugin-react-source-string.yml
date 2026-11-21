@@ -1,0 +1,3 @@
+repo: https://github.com/tanchu/swc-plugin-react-source.git
+packages:
+  - "swc-plugin-react-source-string"
