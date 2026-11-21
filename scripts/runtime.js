@@ -1,35 +1,20 @@
 #!/usr/bin/env zx
 //
 // Run this script using an absolute path to the runtime directory.
-import { parse as parseYaml, } from 'yaml'
 import path from "path";
-import semver from "semver";
-import toml from "toml";
 import { $ } from "zx";
 import 'dotenv/config'
 import fs from 'fs/promises';
 import { cloneRepo } from './utils.js'
 import { getCoreVersions } from './commit-to-core-version.js';
-import { z } from 'zod';
+import { TagSchema, loadRuntimes } from './schemas.js';
 
 
-
-const RuntimeSchema = z.object({
-  name: z.string(),
-  repo: z.string(),
-  path: z.string().nullish(),
-});
 
 const workspaceDir = path.resolve('.workspace');
 await fs.mkdir(workspaceDir, { recursive: true });
 
-for (const runtimeFile of await fs.readdir('pkgs/runtimes')) {
-  const packageVersions = {};
-
-  const pkgYmlPath = `pkgs/runtimes/${runtimeFile}`
-  const pkgYml = parseYaml(await fs.readFile(pkgYmlPath, 'utf8'));
-  const runtime = RuntimeSchema.parse(pkgYml);
-
+for (const { file: runtimeFile, runtime } of await loadRuntimes()) {
   const { name } = runtime;
 
   const wsDir = path.join(workspaceDir, name)
@@ -60,7 +45,7 @@ for (const runtimeFile of await fs.readdir('pkgs/runtimes')) {
   // console.log("Relative path to Cargo.lock:", relativePathToCargoLock);
 
   // Get all git tags
-  const gitTags = (await $$`git tag`.text()).trim().split("\n").filter(Boolean).filter(tag => tag.startsWith("v")).reverse();
+  const gitTags = (await $$`git tag`.text()).trim().split("\n").filter(Boolean).filter(tag => TagSchema.safeParse(tag).success).reverse();
 
   const coreVersions = await getCoreVersions(runtimeDir, cacheDir, gitTags);
   console.log(coreVersions);

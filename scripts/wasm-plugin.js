@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 import { $ } from "zx";
 import fs from 'node:fs/promises'
-import { parse as parseYaml, } from 'yaml'
-import { z } from 'zod'
 import path from "node:path";
 import { getCoreVersions } from './commit-to-core-version.js'
 import { findPackageJsonFiles, asArray, cloneRepo } from './utils.js'
+import { CommitSchema, CommitsCacheSchema as CacheSchema, VersionSchema, loadPlugins } from './schemas.js'
 import 'dotenv/config'
 
 
@@ -19,28 +18,8 @@ import 'dotenv/config'
 const workspaceDir = path.resolve('.workspace');
 await fs.mkdir(workspaceDir, { recursive: true });
 
-const PluginSchema = z.object({
-    repo: z.string(),
-    packages: z.array(z.string())
-});
-
-const CacheSchema = z.object({
-    commit: z.string().describe('The commit hash of the last checked commit'),
-    packageVersions: z.record(z.string(), z.record(z.string(), z.string()))
-})
-
-for (const pkg of await fs.readdir('pkgs/plugins')) {
-    if (!pkg.endsWith('.yml')) {
-        continue
-    }
-
+for (const { name, plugin } of await loadPlugins()) {
     const packageVersions = {};
-
-    const { name } = path.parse(pkg);
-
-    const pkgYmlPath = `pkgs/plugins/${pkg}`
-    const pkgYml = parseYaml(await fs.readFile(pkgYmlPath, 'utf8'));
-    const plugin = PluginSchema.parse(pkgYml);
 
     const wsDir = path.join(workspaceDir, name)
     await fs.mkdir(wsDir, { recursive: true });
@@ -80,10 +59,20 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
 
     // Get git heads from npm
     for (const pkg of plugin.packages) {
-        const data = await (await fetch(`https://registry.npmjs.org/${pkg}`)).json();
+        const res = await fetch(`https://registry.npmjs.org/${pkg}`);
+        if (!res.ok) {
+            throw new Error(`Failed to fetch ${pkg} from npm: ${res.status}`)
+        }
+        const data = await res.json();
 
-        for (const [version, obj] of Object.entries(data.versions)) {
+        for (const [version, obj] of Object.entries(data.versions ?? {})) {
             if (obj.gitHead) {
+                // Anyone who can publish the package controls these values
+                if (!VersionSchema.safeParse(version).success || !CommitSchema.safeParse(obj.gitHead).success) {
+                    console.log(`Ignoring invalid gitHead of ${pkg}@${JSON.stringify(version)}`)
+                    continue
+                }
+
                 if (!packageVersions[pkg]) {
                     packageVersions[pkg] = {}
                 }
@@ -118,6 +107,10 @@ for (const pkg of await fs.readdir('pkgs/plugins')) {
             console.info(`Found '${pkgJson.name}'`)
 
             const version = pkgJson.version;
+            if (!VersionSchema.safeParse(version).success) {
+                console.log(`Ignoring invalid version ${JSON.stringify(version)}`)
+                continue
+            }
 
             if (!packageVersions[pkgJson.name]) {
                 packageVersions[pkgJson.name] = {}

@@ -1,14 +1,9 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { z } from 'zod'
 import { $ } from 'zx'
 import * as toml from 'toml'
 import { findCargoLockFiles, asArray } from './utils.js'
-
-const CacheSchema = z.object({
-    // commit -> version
-    versions: z.record(z.string(), z.string().nullable())
-})
+import { CoreVersionsCacheSchema as CacheSchema, CommitSchema, TagSchema, VersionSchema } from './schemas.js'
 
 /**
  * 
@@ -43,6 +38,10 @@ export async function getCoreVersions(repoDir, cacheDir, allCommits) {
         if (Object.prototype.hasOwnProperty.call(versions, commit)) {
             continue
         }
+        if (!CommitSchema.safeParse(commit).success && !TagSchema.safeParse(commit).success) {
+            console.log(`Skipping invalid commit ${JSON.stringify(commit)}`)
+            continue
+        }
         const version = await getCoreVersion(repoDir, commit)
         versions[commit] = version
 
@@ -75,11 +74,11 @@ async function getCoreVersion(repoDir, commit) {
         // This will throw if the file does not exist at the time of the commit
 
         // Note: This is very verbose, but it fails if we disable verbose logging
-        cargoLock = await $$`git show ${commit}:${relativePathToCargoLock}`.text();
+        cargoLock = await $$`git show --end-of-options ${commit}:${relativePathToCargoLock}`.text();
     } catch (ignored) {
         try {
             // Checkout the commit, and 
-            await $$`git checkout ${commit}`;
+            await $$`git checkout --end-of-options ${commit}`;
         } catch (ignored) {
             return null
         }
@@ -109,11 +108,21 @@ async function getCoreVersion(repoDir, commit) {
  * @returns {string | null}
  */
 function tryCargoLock(content) {
-    const parsed = toml.parse(content);
-    const packages = parsed.package;
+    let parsed;
+    try {
+        parsed = toml.parse(content);
+    } catch (e) {
+        console.log(`Failed to parse Cargo.lock`)
+        return null
+    }
+    const packages = Array.isArray(parsed.package) ? parsed.package : [];
 
     for (const pkg of packages) {
-        if (pkg.name === "swc_core") {
+        if (pkg?.name === "swc_core") {
+            if (!VersionSchema.safeParse(pkg.version).success) {
+                console.log(`Ignoring invalid swc_core version ${JSON.stringify(pkg.version)}`)
+                return null
+            }
             const swcCoreVersion = pkg.version;
 
             console.log(`Found swc_core version ${swcCoreVersion}`);

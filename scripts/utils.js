@@ -2,11 +2,17 @@ import fs from 'fs/promises'
 import path from 'path'
 import { $ } from 'zx'
 import { memoize } from 'lodash-es'
+import { RepoUrlSchema } from './schemas.js'
 
 $.verbose = true
 $.env = {
     ...process.env,
-    LANG: 'C'
+    LANG: 'C',
+    // The crawled repositories are untrusted. Never prompt for credentials,
+    // never fetch LFS objects, and allow only https for clone and fetch.
+    GIT_TERMINAL_PROMPT: '0',
+    GIT_LFS_SKIP_SMUDGE: '1',
+    GIT_ALLOW_PROTOCOL: 'https',
 }
 
 
@@ -28,7 +34,8 @@ export async function* findPackageJsonFiles(dir) {
 
 export async function* findCargoLockFiles(dir) {
     try{
-        if ((await fs.stat(path.join(dir, 'Cargo.lock'))).isFile()) {
+        // lstat: do not follow a symlink out of the repository
+        if ((await fs.lstat(path.join(dir, 'Cargo.lock'))).isFile()) {
             yield path.join(dir, 'Cargo.lock')
         }
     } catch (ignored) { }
@@ -49,6 +56,9 @@ export async function asArray(asyncIterable) {
 }
 
 export async function cloneRepo(repo, wsDir) {
+    // The URL must not be read as a git option, such as `--upload-pack=...`.
+    RepoUrlSchema.parse(repo)
+
     const $$ = $({ cwd: wsDir });
 
 
@@ -57,9 +67,12 @@ export async function cloneRepo(repo, wsDir) {
     })
 
     try {
-        await $$`git clone ${repo} .`
+        // core.symlinks=false checks out symlinks as plain files, so a crawled
+        // repository cannot make the scripts read files outside of it.
+        await $$`git clone -c core.symlinks=false -- ${repo} .`
     } catch (e) {
         console.error(`Failed to clone ${repo} into ${wsDir}`)
+        await $$`git config core.symlinks false`
         await $$`git fetch origin -p`
 
         console.info(`Default branch: ${await defaultBranch()}`)
