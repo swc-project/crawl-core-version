@@ -9,16 +9,97 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  update:
+  # Clones and reads untrusted repositories. This job gets no secrets and no
+  # write token, so code that runs here cannot push or publish anything.
+  crawl:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
-        script:
-          - "runtime.js"
-          - "wasm-plugin.js"
+        include:
+          - script: "runtime.js"
+            kind: "runtimes"
+          - script: "wasm-plugin.js"
+            kind: "wasm-plugins"
     steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      # Node.js 24 bundles corepack, so no package is installed from npm here.
+      - name: Enable corepack
+        run: |
+          corepack enable
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Crawl
+        run: node "./scripts/$SCRIPT"
+        env:
+          SCRIPT: ${{ matrix.script }}
+
+      - name: Upload crawl output
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: crawl-${{ matrix.kind }}
+          path: |
+            cache/${{ matrix.kind }}/
+            payloads/${{ matrix.kind }}/
+          retention-days: 7
+
+  # Validates the crawl output, commits the cache, and publishes the data.
+  # Only this job can use the bot token and CRAWL_SECRET, and it runs no code
+  # from the crawled repositories.
+  update:
+    needs: crawl
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      # Node.js 24 bundles corepack, so no package is installed from npm here.
+      - name: Enable corepack
+        run: |
+          corepack enable
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Download crawl output
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          pattern: crawl-*
+          path: ${{ runner.temp }}/crawl
+
+      - name: Validate crawl output
+        id: accept
+        run: node ./scripts/accept-crawl-output.js "$RUNNER_TEMP/crawl"
+
       - name: Create bot token
         id: bot-token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
@@ -41,38 +122,28 @@ jobs:
           echo "name=${login}" >> "$GITHUB_OUTPUT"
           echo "email=${id}+${login}@users.noreply.github.com" >> "$GITHUB_OUTPUT"
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: ${{ steps.bot-token.outputs.token }}
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Enable corepack
+      - name: Commit
+        env:
+          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
+          AUTHOR_NAME: ${{ steps.bot-identity.outputs.name }}
+          AUTHOR_EMAIL: ${{ steps.bot-identity.outputs.email }}
         run: |
-          echo "Before: corepack version => $(corepack --version || echo 'not installed')"
-          npm install -g corepack@latest
-          echo "After : corepack version => $(corepack --version)"
-          corepack enable
-          pnpm --version
+          git config user.name "$AUTHOR_NAME"
+          git config user.email "$AUTHOR_EMAIL"
+          git add cache
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "chore: Run & Update cache"
+          # Give the token to these git commands only, not to the checkout.
+          auth="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          echo "::add-mask::${auth#AUTHORIZATION: basic }"
+          git -c http.https://github.com/.extraheader="$auth" pull --rebase origin "$GITHUB_REF_NAME"
+          git -c http.https://github.com/.extraheader="$auth" push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Update
-        run: node ./scripts/${{ matrix.script }}
+      - name: Publish
+        if: ${{ !cancelled() && steps.accept.outcome == 'success' }}
+        run: node ./scripts/publish.js
         env:
           CRAWL_SECRET: ${{ secrets.CRAWL_SECRET }}
-
-      - name: Commit
-        uses: EndBug/add-and-commit@v4
-        with:
-          author_name: ${{ steps.bot-identity.outputs.name }}
-          author_email: ${{ steps.bot-identity.outputs.email }}
-          message: "chore: Run & Update cache"
-          add: "cache"
-        env:
-          GITHUB_TOKEN: ${{ steps.bot-token.outputs.token }}

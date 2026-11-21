@@ -133,3 +133,5 @@ dist
 
 # Workspace
 .workspace/
+# Data for plugins.swc.rs, written by the crawl scripts
+payloads/

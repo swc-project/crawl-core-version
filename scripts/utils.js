@@ -87,6 +87,19 @@ export async function cloneRepo(repo, wsDir) {
 }
 
 /**
+ * Writes the data to send to plugins.swc.rs. `scripts/publish.js` sends it.
+ *
+ * @param {'runtimes' | 'wasm-plugins'} kind
+ * @param {string} id
+ * @param {{ name: string, versions: { version: string, swcCoreVersion: string }[] }[]} pkgs
+ */
+export async function writePayload(kind, id, pkgs) {
+    const dir = path.join('payloads', kind)
+    await fs.mkdir(dir, { recursive: true })
+    await fs.writeFile(path.join(dir, `${id}.json`), JSON.stringify({ pkgs }, null, 2))
+}
+
+/**
  * Runs `fn` and reports a failure without stopping the other targets.
  *
  * @param {string} target

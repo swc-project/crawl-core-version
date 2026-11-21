@@ -3,9 +3,8 @@
 // Run this script using an absolute path to the runtime directory.
 import path from "path";
 import { $ } from "zx";
-import 'dotenv/config'
 import fs from 'fs/promises';
-import { cloneRepo, isolate } from './utils.js'
+import { cloneRepo, isolate, writePayload } from './utils.js'
 import { getCoreVersions } from './commit-to-core-version.js';
 import { TagSchema, loadRuntimes } from './schemas.js';
 
@@ -13,6 +12,8 @@ import { TagSchema, loadRuntimes } from './schemas.js';
 
 const workspaceDir = path.resolve('.workspace');
 await fs.mkdir(workspaceDir, { recursive: true });
+await fs.rm(path.join('payloads', 'runtimes'), { recursive: true, force: true });
+await fs.mkdir(path.join('payloads', 'runtimes'), { recursive: true });
 
 for (const { file, runtime } of await loadRuntimes()) {
   await isolate(file, () => crawlRuntime(file, runtime))
@@ -56,32 +57,23 @@ async function crawlRuntime(runtimeFile, runtime) {
 
 
 
-  if (process.env.CRAWL_SECRET) {
-    const pkgs = []
-    const pkg = runtime.name;
-    const pkgVersions = gitTags.filter(tag => {
-      return coreVersions[tag]
-    }).map((tag) => {
-      return {
-        version: tag,
-        swcCoreVersion: coreVersions[tag]
-      }
-    });
+  const pkgs = []
+  const pkg = runtime.name;
+  const pkgVersions = gitTags.filter(tag => {
+    return coreVersions[tag]
+  }).map((tag) => {
+    return {
+      version: tag,
+      swcCoreVersion: coreVersions[tag]
+    }
+  });
 
-    pkgs.push({
-      name: pkg,
-      versions: pkgVersions
-    });
+  pkgs.push({
+    name: pkg,
+    versions: pkgVersions
+  });
 
-
-    await fetch(`https://plugins.swc.rs/api/update/runtimes`, {
-      method: 'POST',
-      body: JSON.stringify({
-        token: process.env.CRAWL_SECRET,
-        pkgs,
-      })
-    })
-  }
+  await writePayload('runtimes', runtimeFile, pkgs)
 }
 
 

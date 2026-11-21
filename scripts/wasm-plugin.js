@@ -3,9 +3,8 @@ import { $ } from "zx";
 import fs from 'node:fs/promises'
 import path from "node:path";
 import { getCoreVersions } from './commit-to-core-version.js'
-import { findPackageJsonFiles, asArray, cloneRepo, isolate } from './utils.js'
+import { findPackageJsonFiles, asArray, cloneRepo, isolate, writePayload } from './utils.js'
 import { CommitSchema, CommitsCacheSchema as CacheSchema, VersionSchema, loadPlugins } from './schemas.js'
-import 'dotenv/config'
 
 
 
@@ -17,6 +16,8 @@ import 'dotenv/config'
 
 const workspaceDir = path.resolve('.workspace');
 await fs.mkdir(workspaceDir, { recursive: true });
+await fs.rm(path.join('payloads', 'wasm-plugins'), { recursive: true, force: true });
+await fs.mkdir(path.join('payloads', 'wasm-plugins'), { recursive: true });
 
 for (const { name, plugin } of await loadPlugins()) {
     await isolate(name, () => crawlPlugin(name, plugin))
@@ -148,34 +149,23 @@ async function crawlPlugin(name, plugin) {
 
     const coreVersions = await getCoreVersions(wsDir, cacheDir, uniqueCommits);
 
-    if (process.env.CRAWL_SECRET) {
-        for (const pkg of plugin.packages) {
-            console.log(`Updating ${pkg}`);
-
-            const pkgs = [];
-            const versions = packageVersions[pkg];
-            for (const [version, commit] of Object.entries(versions)) {
-                if (!coreVersions[commit]) {
-                    delete versions[version]
-                }
-            }
-            const pkgVersions = Object.entries(versions).map(([version, commit]) => ({
-                version,
-                swcCoreVersion: coreVersions[commit]
-            }))
-            pkgs.push({
-                name: pkg,
-                versions: pkgVersions
-            });
-            await fetch(`https://plugins.swc.rs/api/update/wasm-plugins`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    token: process.env.CRAWL_SECRET,
-                    pkgs,
-                })
-            })
+    const pkgs = [];
+    for (const pkg of plugin.packages) {
+        const versions = packageVersions[pkg];
+        if (!versions) {
+            console.warn(`No versions found for ${pkg}`)
+            continue
         }
+        const pkgVersions = Object.entries(versions).filter(([, commit]) => coreVersions[commit]).map(([version, commit]) => ({
+            version,
+            swcCoreVersion: coreVersions[commit]
+        }))
+        pkgs.push({
+            name: pkg,
+            versions: pkgVersions
+        });
     }
+    await writePayload('wasm-plugins', name, pkgs)
 
     console.log(coreVersions)
 }
