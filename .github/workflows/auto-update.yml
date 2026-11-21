@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
-# Writes use the swc-project-bot GitHub App token, not GITHUB_TOKEN.
+# Writes use the swc-plugin-crawl-bot GitHub App token, not GITHUB_TOKEN.
 permissions:
   contents: read
 
@@ -23,8 +23,8 @@ jobs:
         id: bot-token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
-          client-id: ${{ vars.BOT_APP_CLIENT_ID }}
-          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          client-id: ${{ vars.CRAWL_BOT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.CRAWL_BOT_APP_PRIVATE_KEY }}
           permission-contents: write
 
       # Resolve the bot identity at runtime so commits keep following the app
