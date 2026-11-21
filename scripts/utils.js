@@ -85,3 +85,19 @@ export async function cloneRepo(repo, wsDir) {
 
     return { defaultBranch, latestCommit }
 }
+
+/**
+ * Runs `fn` and reports a failure without stopping the other targets.
+ *
+ * @param {string} target
+ * @param {() => Promise<void>} fn
+ */
+export async function isolate(target, fn) {
+    try {
+        await fn()
+    } catch (e) {
+        console.error(`::error::Failed to crawl ${target}`)
+        console.error(e)
+        process.exitCode = 1
+    }
+}

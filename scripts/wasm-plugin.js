@@ -3,7 +3,7 @@ import { $ } from "zx";
 import fs from 'node:fs/promises'
 import path from "node:path";
 import { getCoreVersions } from './commit-to-core-version.js'
-import { findPackageJsonFiles, asArray, cloneRepo } from './utils.js'
+import { findPackageJsonFiles, asArray, cloneRepo, isolate } from './utils.js'
 import { CommitSchema, CommitsCacheSchema as CacheSchema, VersionSchema, loadPlugins } from './schemas.js'
 import 'dotenv/config'
 
@@ -19,6 +19,10 @@ const workspaceDir = path.resolve('.workspace');
 await fs.mkdir(workspaceDir, { recursive: true });
 
 for (const { name, plugin } of await loadPlugins()) {
+    await isolate(name, () => crawlPlugin(name, plugin))
+}
+
+async function crawlPlugin(name, plugin) {
     const packageVersions = {};
 
     const wsDir = path.join(workspaceDir, name)
@@ -39,23 +43,29 @@ for (const { name, plugin } of await loadPlugins()) {
 
     const $$ = $({ cwd: wsDir });
 
-    const { defaultBranch, latestCommit } = await cloneRepo(plugin.repo, wsDir)
+    const { latestCommit } = await cloneRepo(plugin.repo, wsDir)
+
+    // All commits up to the latest one, oldest first
+    const history = (await $$`git log --reverse --pretty=%H ${latestCommit}`).text().trim().split('\n')
+    let start = 0
 
     if (cache.success) {
         const commit = cache.data.commit
-        await $$`git checkout ${commit}`
-        console.info(`Resuming from '${commit}'`)
+        const index = history.indexOf(commit)
+        if (index === -1) {
+            // The history was rewritten. Check all commits again.
+            console.warn(`Cached commit '${commit}' is not in the history. Checking all commits.`)
+        } else {
+            console.info(`Resuming from '${commit}'`)
+            start = index + 1
+        }
 
         for (const [pkg, versions] of Object.entries(cache.data.packageVersions)) {
             packageVersions[pkg] = versions
         }
     } else {
-        const firstCommit = (await $$`git rev-list --max-parents=0 HEAD`).text().trim()
-        console.info(`Checking out the first commit: '${firstCommit}' (No cache)`)
-        await $$`git checkout ${firstCommit}`
+        console.info(`Checking all commits (No cache)`)
     }
-
-    const baseBranch = await defaultBranch()
 
     // Get git heads from npm
     for (const pkg of plugin.packages) {
@@ -85,12 +95,10 @@ for (const { name, plugin } of await loadPlugins()) {
         }
     }
 
-    // Go to the next commit, and check for the new package versions
-    while (true) {
-        // Move to the next commit
-        await $$`git log --reverse --pretty=%H ${baseBranch} | grep -A 1 $(git rev-parse HEAD) | tail -1 | xargs git checkout`
+    // Check each new commit for the new package versions
+    for (const commit of history.slice(start)) {
+        await $$`git checkout --detach ${commit}`
 
-        const commit = (await $$`git rev-parse HEAD`).text().trim()
         const packageJsonFiles = await asArray(findPackageJsonFiles(wsDir))
 
         for (const pkg of packageJsonFiles) {
@@ -123,10 +131,6 @@ for (const { name, plugin } of await loadPlugins()) {
             }
 
         }
-
-        if (latestCommit === commit) {
-            break
-        }
     }
 
     // Write cache
@@ -140,7 +144,7 @@ for (const { name, plugin } of await loadPlugins()) {
     const uniqueCommits = [...new Set(allCommits)]
 
     // Reset to the latest commit
-    await $$`git checkout ${baseBranch}`
+    await $$`git checkout --detach ${latestCommit}`
 
     const coreVersions = await getCoreVersions(wsDir, cacheDir, uniqueCommits);
 
@@ -171,12 +175,7 @@ for (const { name, plugin } of await loadPlugins()) {
                 })
             })
         }
-
-
-
     }
 
     console.log(coreVersions)
 }
-
-

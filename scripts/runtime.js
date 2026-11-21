@@ -5,7 +5,7 @@ import path from "path";
 import { $ } from "zx";
 import 'dotenv/config'
 import fs from 'fs/promises';
-import { cloneRepo } from './utils.js'
+import { cloneRepo, isolate } from './utils.js'
 import { getCoreVersions } from './commit-to-core-version.js';
 import { TagSchema, loadRuntimes } from './schemas.js';
 
@@ -14,7 +14,11 @@ import { TagSchema, loadRuntimes } from './schemas.js';
 const workspaceDir = path.resolve('.workspace');
 await fs.mkdir(workspaceDir, { recursive: true });
 
-for (const { file: runtimeFile, runtime } of await loadRuntimes()) {
+for (const { file, runtime } of await loadRuntimes()) {
+  await isolate(file, () => crawlRuntime(file, runtime))
+}
+
+async function crawlRuntime(runtimeFile, runtime) {
   const { name } = runtime;
 
   const wsDir = path.join(workspaceDir, name)
@@ -78,8 +82,6 @@ for (const { file: runtimeFile, runtime } of await loadRuntimes()) {
       })
     })
   }
-
-
 }
 
 
